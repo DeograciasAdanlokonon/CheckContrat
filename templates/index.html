@@ -1,0 +1,1566 @@
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckTonContrat IA - Assistant Intelligent pour analyser les contrats</title>
+    <meta name="description" content="Negocy : logiciel IA analyse de contrats et fiches de paie France. Entreprises : analyses vos contrats plus vite. Acheteurs publics : analysez et comparez contrats et fiches de paies automatiquement.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar moderne et interactive -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-navbar">
+        <div class="backdrop-blur-lg bg-white/90 shadow-lg transition-all duration-300">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16 md:h-20">
+                    <!-- Logo et nom -->
+                    <a href="/" class="flex items-center space-x-2 group">
+                        <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg md:text-xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">C</div>
+                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden sm:inline-block">CheckTonContrat IA</span>
+                    </a>
+
+                    <!-- Navigation principale - Desktop -->
+                    <div class="hidden md:flex items-center space-x-8" id="nav-menu">
+                        <a href="/" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                            Accueil
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
+                        </a>
+                        <a href="#fonctionnalites" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                            Fonctionnalités
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
+                        </a>
+                        <a href="#faq" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                            FAQ
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
+                        </a>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="flex items-center space-x-3 md:space-x-4" id="nav-actions">
+                        <!-- Sélecteur de langue -->
+                        <div class="relative language-selector">
+                            <button class="flex items-center space-x-1 text-gray-700 hover:text-indigo-600 transition-colors duration-300" id="language-button">
+                                <span class="hidden sm:inline-block">FR</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 transform scale-0 origin-top transition-transform duration-200 z-50 language-dropdown">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 flex items-center space-x-2">
+                                    <span class="w-5 h-5 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-600 font-medium text-xs">FR</span>
+                                    <span>Français</span>
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 flex items-center space-x-2">
+                                    <span class="w-5 h-5 rounded-full flex items-center justify-center bg-gray-100 text-gray-600 font-medium text-xs">EN</span>
+                                    <span>English</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="{{ url_for('login') }}" class="hidden sm:inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors duration-300 font-medium">
+                            Se connecter
+                        </a>
+
+                        <!-- Bouton menu mobile -->
+                        <button class="md:hidden flex items-center focus:outline-none" id="mobile-menu-button" aria-label="Menu">
+                            <span class="w-7 h-6 flex flex-col justify-between items-center">
+                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
+                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
+                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu mobile avec design amélioré -->
+        <div class="md:hidden fixed inset-0 bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 ease-in-out z-40 mobile-menu" id="mobile-menu">
+            <div class="h-full flex flex-col">
+                <!-- Bouton fermeture -->
+                <div class="flex justify-end p-4">
+                    <button class="mobile-close-button focus:outline-none" aria-label="Fermer le menu">
+                        <svg class="w-6 h-6 text-white hover:text-gray-200 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Liens du menu -->
+                <div class="flex-1 flex flex-col justify-center items-center space-y-8 px-4">
+                    <a href="/" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Accueil</a>
+                    <a href="#fonctionnalites" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Fonctionnalités</a>
+                    <a href="#faq" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">FAQ</a>
+                    <a href="/login/" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Se connecter</a>
+                </div>
+
+                <!-- Footer optionnel du menu -->
+                <div class="p-4 text-center text-white/80 text-sm border-t border-white/20">
+                    © 2025 CheckTonContrat IA. Tous droits réservés.
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+<!-- Hero Section avec effet de parallaxe et morphing -->
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white py-32">
+    <!-- Fond animé avec motif de grille -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
+        <div id="particles-js" class="absolute inset-0 opacity-20"><canvas class="particles-js-canvas-el" width="1351" height="856" style="width: 100%; height: 100%;"></canvas></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-pink-500/10 animate-gradient-slow"></div>
+    </div>
+
+    <!-- Formes géométriques flottantes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="floating-shape shape-1" style="translate: none; rotate: none; scale: none; transform: translate(-8.3163px, 9.9024px) rotate(0.7357deg);"></div>
+        <div class="floating-shape shape-2" style="translate: none; rotate: none; scale: none; transform: translate(-16.6325px, 19.8049px) rotate(1.75238deg);"></div>
+        <div class="floating-shape shape-3" style="translate: none; rotate: none; scale: none; transform: translate(-24.9488px, 29.7073px) rotate(0.10371deg);"></div>
+    </div>
+
+    <!-- Contenu principal avec effet de révélation -->
+    <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Contenu textuel -->
+            <div class="relative z-10 text-left reveal-content space-y-8 max-w-xl mx-auto lg:mx-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+
+                <div class="inline-flex items-center px-4 py-2 " style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+               
+                </div>
+
+                <!-- Titre principal avec animation de split -->
+                <h1 class="text-5xl sm:text-6xl font-black text-gray-900 mb-8 leading-tight tracking-tight split-text-hero">
+                    <span class="block reveal-title-1 opacity-0 transform -translate-y-8" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                        Analyser vos
+                        <span class="relative inline-block">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 transition-transform duration-300">
+                                contrats et fiches
+                            </span>
+                            <svg class="absolute -bottom-2 left-0 w-full h-2 text-indigo-600/20" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0,5 Q25,0 50,5 T100,5" stroke="currentColor" stroke-width="2" fill="none"></path>
+                            </svg>
+                        </span>
+                    </span>
+                    <span class="block reveal-title-2 opacity-0 transform translate-y-8 text-3xl sm:text-4xl mt-4" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                        avec l'intelligence artificielle
+                    </span>
+                </h1>
+
+                <!-- Sous-titre avec effet de fondu -->
+                <p class="text-xl text-gray-600 mb-10 leading-relaxed reveal-text opacity-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                    CheckTonContrat AI permet aux utilisateurs de soumettre leur contrat de travail ou leur fiche de paie afin de vérifier automatiquement leur conformité grâce à l’intelligence artificielle.
+                </p>
+
+                <!-- Boutons d'action avec effets hover -->
+                <div class="flex flex-col sm:flex-row gap-6 items-start reveal-buttons opacity-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                    <a href="{{ url_for('register') }}" class="group relative inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-white overflow-hidden w-full sm:w-auto justify-center">
+                        <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 transform transition-all duration-300 group-hover:scale-105"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transform transition-all duration-300"></span>
+                        <span class="relative flex items-center">
+                            Démarrer Maintenant
+                            <svg class="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Statistiques avec animation -->
+                <div class="grid grid-cols-3 gap-4 mt-16 reveal-stats opacity-0">
+                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 counter" data-target="95">0</div>
+                        <div class="text-sm text-gray-600">% de temps gagné</div>
+                    </div>
+                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
+                        <div class="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 counter" data-target="1000">0</div>
+                        <div class="text-sm text-gray-600">Contrats analysés</div>
+                    </div>
+                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
+                        <div class="text-2xl sm:text-3xl font-bold text-pink-600 mb-1 counter" data-target="99">0</div>
+                        <div class="text-sm text-gray-600">% de satisfaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image du robot IA -->
+            <div class="hidden lg:flex justify-center items-center relative">
+                <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 rounded-full filter blur-3xl opacity-30 animate-pulse-slow"></div>
+                <div class="relative z-10 transform hover:scale-105 transition-transform duration-500 drop-shadow-2xl">
+                    <img src="/static/images/ia_assistant.png" alt="Assistant IA pour les appels d'offres" class="rounded-2xl max-w-md w-full mx-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loader -->
+<div class="loader fixed inset-0 z-50 flex items-center justify-center bg-white" style="opacity: 0; display: none;">
+    <div class="loader-content">
+        <span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            CheckTonContrat IA
+        </span>
+    </div>
+</div>
+
+<!-- Cursor personnalisé -->
+<div class="cursor-dot" style="translate: none; rotate: none; scale: none; transform: translate(-50%, -50%) translate(115px, 204px);"></div>
+<div class="cursor-outline" style="translate: none; rotate: none; scale: none; transform: translate(-50%, -50%) translate(115px, 204px);"></div>
+
+
+<!-- Section Fonctionnalités avec cartes interactives -->
+<section id="fonctionnalites" class="py-24 bg-gradient-to-b from-white to-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-20">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                Une solution complète pour une vérifications premium
+            </h2>
+            <p class="text-xl text-gray-600">
+                CheckTonContrat IA vous garantie une vérification et analyse premium de vos contrats de travail et fiches de paie avec des outils intelligents adaptés à vos besoins.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Carte 1 : Analyse des appels d'offres -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
+                <div class="p-8">
+                    <div class="w-14 h-14 rounded-lg bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Analyse intelligente</h3>
+                    <p class="text-gray-600 mb-6">
+                        Téléchargez votre contrat/fiche et notre IA analyse instantanément les exigences, conformité et points clés pour optimiser votre réponse.
+                    </p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Résultat clair</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span> L’IA identifie et explique toute erreur</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Téléchargement d'un résumé PDF de l’analyse</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- Carte 2 : Génération de documents -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
+                <div class="p-8">
+                    <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mb-6 text-purple-600 text-2xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Contrat de Travail</h3>
+                    <p class="text-gray-600 mb-6">
+                        Analyse de vos contrats de travail conformes aux exigences réglementaires en quelques secondes grâce à notre IA spécialisée.
+                    </p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Analyse avancée et pro</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Indication des éléments incorrects ou manquants</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-purple-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Conformité juridique garantie</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- Carte 4 : Comparaison des offres -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
+                <div class="p-8">
+                    <div class="w-14 h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-6 text-blue-600 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Fiche de Paie</h3>
+                    <p class="text-gray-600 mb-6">
+                        Analysez et vérifiez automatiquement les fiches de paies pour faciliter votre prise de décision et justifier vos droits.
+                    </p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Vérification professionnelle</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Résumé détaillé en PDF</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Rapports de conformité automatisé</span>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Section Pour qui -->
+<section id="pour-qui" class="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                Pour qui est conçu CheckTonContrat IA ?
+            </h2>
+            <p class="text-xl text-gray-600">
+                Une solution adaptée aux besoins spécifiques des étudiants, salariés et apprentis
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Etudiants -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
+                <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-3xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les étudiants</h3>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Analysez vos contrats de travail pour une bonne décision et réussite professionnelle.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Gagnez du temps</strong> en analysant rapidement les contrats complexes
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Vérifier les exigences</strong> conformes au droit français
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Améliorez la qualité</strong> de vos contrat de travail
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300">
+                        <span class="flex items-center">
+                            Démarrez Maintenant
+                            <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Apprentis -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
+                <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-3xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-screwdriver"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les apprentis</h3>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Analysez vos contrats de travail pour une bonne décision et réussite professionnelle.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Gagnez du temps</strong> en analysant rapidement les contrats complexes
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Créez des mémoires techniques</strong> parfaitement adaptés aux attentes
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Améliorez la qualité</strong> de vos réponses aux appels d'offres
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300">
+                        <span class="flex items-center">
+                            Démarrez Maintenant
+                            <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Salaries -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-pink-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-xl bg-purple-100 flex items-center justify-center mb-6 text-purple-600 text-3xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                        <i class="fas fa-user-doctor"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les salariés</h3>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Vérifiez la conformité de vos fiches de paies pour garantir un contrôle judicieux.
+                    </p>
+
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Analysez des fiches de paies</strong> conformes et optimisés rapidement
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Comparez les fiches de paie</strong> avec des critères objectifs
+                            </span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-gray-700">
+                                <strong class="font-semibold">Assurez la conformité</strong> juridique de vos fiches de paie
+                            </span>
+                        </li>
+                    </ul>
+
+                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-purple-600 hover:bg-purple-700 transition-colors duration-300">
+                        <span class="flex items-center">
+                            Démarrez Maintenant
+                            <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Section FAQ avec accordéon -->
+<section class="py-24 bg-gray-50" id="faq">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                Questions fréquentes
+            </h2>
+            <p class="text-xl text-gray-600">
+                Tout ce que vous devez savoir sur CheckTonContrat IA
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+            <!-- Accordéon FAQ -->
+            <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Comment fonctionne l'analyse automatique des documents ?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-600">
+                            Notre IA analyse vos documents en utilisant des algorithmes de traitement du langage naturel avancés. Elle identifie automatiquement les informations clés, les exigences techniques et les critères d'évaluation. Le système génère ensuite un rapport détaillé avec des recommandations personnalisées.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Quels types de documents peuvent être analysés ?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-600">
+                            CheckTonContrat IA peut analyser les documents suivants : Contrat de travail et Fiche de paie. Notre système est capable de traiter les documents PDF eet Word.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Combien de temps prend une analyse complète ?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-600">
+                            L'analyse en fontion du module prend généralement entre 30 et 50 secondes, selon la complexité et le volume des documents. C'est 95% plus rapide qu'une analyse manuelle traditionnelle.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Les données sont-elles sécurisées ?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-600">
+                            Absolument. Nous utilisons un chiffrement de bout en bout et nos serveurs sont hébergés en France. Nous sommes conformes au RGPD.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="faq-item bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Puis-je exporter les analyses ?</span>
+                        <svg class="w-6 h-6 text-gray-500 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-600">
+                            Oui, vous pouvez exporter les analyses dans un formats (PDF) et les partager facilement avec votre équipe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Témoignages -->
+<section class="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <!-- Formes décoratives -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-indigo-100 to-indigo-50 rounded-full opacity-50 blur-3xl transform -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-tr from-purple-100 to-purple-50 rounded-full opacity-50 blur-3xl transform translate-y-1/2"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                Ce que nos clients disent
+            </h2>
+            <p class="text-xl text-gray-600">
+                Découvrez les retours d'expérience de nos utilisateurs
+            </p>
+        </div>
+
+        <!-- Slider des témoignages -->
+        <div class="testimonials-slider relative">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Témoignage 1 -->
+                <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+                                D
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-semibold text-gray-900">Daniel M.</h4>
+                                <p class="text-sm text-gray-600">Ingénieurs des Données</p>
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 italic">
+                            "CheckTonContrat IA a révolutionné notre façon de traiter les contrats. Le gain de temps est considérable et la précision de l'analyse nous permet d'être plus efficaces."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Témoignage 2 -->
+                <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
+                                C
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-semibold text-gray-900">Clothilde S.</h4>
+                                <p class="text-sm text-gray-600">Etudiant en Réseaux électrique</p>
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 italic">
+                            "L'IA est vraiment impressionnante dans son analyse des documents. Elle repère des détails que nous aurions pu manquer. Un outil indispensable !"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Témoignage 3 -->
+                <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center text-white font-bold text-xl">
+                                P
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-semibold text-gray-900">Pierre R.</h4>
+                                <p class="text-sm text-gray-600">Chef de Projet</p>
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-gray-600 italic">
+                            "L'interface est très intuitive. Nous avons pu réaliser nos premières analyses en moins d'une heure."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Styles et animations -->
+<style>
+    .animate-gradient-slow {
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        transition: opacity .3s ease-in-out,
+                    transform .3s ease-in-out;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #6366f1;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(99, 102, 241, 0.5);
+    }
+
+    .card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .bg-pattern {
+        background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .stat-card {
+        box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+        .language-dropdown {
+            right: -10px;
+        }
+
+        /* Animation des liens du menu mobile */
+        .mobile-nav-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .mobile-nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            transition: width 0.3s ease;
+        }
+
+        .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+    }
+
+    /* Styles pour les formes flottantes */
+    .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.3;
+        animation: float 20s infinite;
+    }
+
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, rgba(168,85,247,0.2) 100%);
+        top: 10%;
+        left: 5%;
+        animation-delay: -2s;
+    }
+
+    .shape-2 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(236,72,153,0.1) 100%);
+        top: 40%;
+        right: 10%;
+        animation-delay: -5s;
+    }
+
+    .shape-3 {
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(99,102,241,0.1) 100%);
+        bottom: 15%;
+        left: 15%;
+        animation-delay: -8s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+            transform: translate(2%, 2%) rotate(5deg);
+        }
+        50% {
+            transform: translate(-1%, 4%) rotate(-5deg);
+        }
+        75% {
+            transform: translate(-3%, -2%) rotate(2deg);
+        }
+    }
+
+    .bg-grid-pattern {
+        background-image:
+            linear-gradient(to right, rgba(99,102,241,0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(99,102,241,0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    @keyframes scroll-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(6px); }
+    }
+
+    .animate-scroll-bounce {
+        animation: scroll-bounce 2s infinite;
+    }
+
+    /* Nouvelles animations pour les fonctionnalités */
+    .feature-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .feature-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .feature-card:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Animation des statistiques */
+    .stat-item {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .stat-item:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .stat-item:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    /* Animation des logos clients */
+    .reveal-logos {
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 1.5s;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Styles pour la section tarification */
+    .pricing-toggle button span {
+        transform: translateX(0);
+    }
+
+    .pricing-toggle.active button span {
+        transform: translateX(32px);
+    }
+
+    .pricing-card {
+        transition: all 0.3s ease;
+    }
+
+    /* Styles pour la FAQ */
+    .faq-item button svg {
+        transition: transform 0.3s ease;
+    }
+
+    .faq-item.active button svg {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        transition: all 0.3s ease;
+    }
+
+    /* Styles pour les témoignages */
+    .testimonial-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .testimonial-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .testimonial-card:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    /* Animation du footer */
+    footer .grid > div {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    footer .grid > div:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    footer .grid > div:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    footer .grid > div:nth-child(4) {
+        animation-delay: 0.6s;
+    }
+
+    /* Effet de survol sur les liens du footer */
+    footer a {
+        position: relative;
+        display: inline-block;
+    }
+
+    footer a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background: linear-gradient(to right, #6366f1, #a855f7);
+        transition: width 0.3s ease;
+    }
+
+    footer a:hover::after {
+        width: 100%;
+    }
+
+    /* Animation des formes décoratives du footer */
+    footer .absolute {
+        animation: pulse 10s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1) translate(-50%, -50%);
+            opacity: 0.1;
+        }
+        50% {
+            transform: scale(1.1) translate(-45%, -45%);
+            opacity: 0.15;
+        }
+    }
+</style>
+
+<!-- Scripts pour les animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialisation des animations GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animation du loader
+        gsap.to('.loader', {
+            opacity: 0,
+            duration: 1,
+            delay: 0.5,
+            onComplete: () => {
+                document.querySelector('.loader').style.display = 'none';
+                // Animations d'entrée
+                gsap.to('.reveal-content', { opacity: 1, y: 0, duration: 1 });
+                gsap.to('.reveal-text', { opacity: 1, y: 0, duration: 1, delay: 0.3 });
+                gsap.to('.reveal-buttons', { opacity: 1, y: 0, duration: 1, delay: 0.6 });
+                gsap.to('.reveal-scroll', { opacity: 1, y: 0, duration: 1, delay: 0.9 });
+            }
+        });
+
+        // Animations au scroll
+        gsap.utils.toArray('.reveal-title').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1
+            });
+        });
+
+        // Animation des cartes
+        gsap.utils.toArray('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const xRotation = ((y - rect.height / 2) / rect.height) * 20;
+                const yRotation = ((x - rect.width / 2) / rect.width) * 20;
+
+                gsap.to(card, {
+                    rotationX: xRotation,
+                    rotationY: yRotation,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Curseur personnalisé
+        const cursor = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+            gsap.to(cursorOutline, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.5
+            });
+        });
+
+        // Initialisation des particules
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#6366f1' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            }
+        });
+
+        // Animation des compteurs
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+
+            ScrollTrigger.create({
+                trigger: counter,
+                start: 'top 80%',
+                onEnter: () => updateCounter()
+            });
+        });
+
+        // Gestion du sélecteur de langue
+        const languageButton = document.getElementById('language-button');
+        const languageDropdown = document.querySelector('.language-dropdown');
+        const languageArrow = document.querySelector('.language-arrow');
+        let languageMenuOpen = false;
+
+        languageButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            languageMenuOpen = !languageMenuOpen;
+
+            if (languageMenuOpen) {
+                languageDropdown.style.transform = 'scale(1)';
+                languageArrow.style.transform = 'rotate(180deg)';
+            } else {
+                languageDropdown.style.transform = 'scale(0)';
+                languageArrow.style.transform = 'rotate(0)';
+            }
+        });
+
+        // Fermer le menu de langue en cliquant ailleurs
+        document.addEventListener('click', () => {
+            if (languageMenuOpen) {
+                languageDropdown.style.transform = 'scale(0)';
+                languageArrow.style.transform = 'rotate(0)';
+                languageMenuOpen = false;
+            }
+        });
+
+        // Empêcher la fermeture lors du clic sur le menu lui-même
+        languageDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Animation du badge
+        gsap.to('.reveal-badge', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.5,
+            ease: 'power3.out'
+        });
+
+        // Animation du titre split
+        gsap.to('.reveal-title-1', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            delay: 0.7,
+            ease: 'power4.out'
+        });
+
+        gsap.to('.reveal-title-2', {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            delay: 0.9,
+            ease: 'power4.out'
+        });
+
+        // Animation du texte
+        gsap.to('.reveal-text', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 1.1,
+            ease: 'power3.out'
+        });
+
+        // Animation des boutons
+        gsap.to('.reveal-buttons', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 1.3,
+            ease: 'power3.out'
+        });
+
+        // Animation de l'indicateur de défilement
+        gsap.to('.reveal-scroll', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 2,
+            ease: 'power2.out'
+        });
+
+        // Effet parallaxe sur les formes flottantes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.floating-shape');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            shapes.forEach((shape, index) => {
+                const factor = (index + 1) * 20;
+                gsap.to(shape, {
+                    x: mouseX * factor,
+                    y: mouseY * factor,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Animation des fonctionnalités au scroll
+        const features = document.querySelectorAll('.feature-item');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        features.forEach(feature => {
+            feature.style.opacity = '0';
+            feature.style.transform = 'translateY(20px)';
+            feature.style.transition = 'all 0.6s ease';
+            observer.observe(feature);
+        });
+
+        // Toggle Mensuel/Annuel
+        const pricingToggle = document.querySelector('.pricing-toggle button');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        let isAnnual = false;
+
+        pricingToggle?.addEventListener('click', () => {
+            isAnnual = !isAnnual;
+            pricingToggle.closest('.pricing-toggle').classList.toggle('active');
+
+            monthlyPrices.forEach(price => {
+                const monthlyPrice = parseInt(price.textContent);
+                if (isAnnual) {
+                    price.textContent = `${Math.round(monthlyPrice * 0.8)}€`;
+                } else {
+                    price.textContent = `${monthlyPrice}€`;
+                }
+            });
+        });
+
+        // FAQ Accordéon
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const button = item.querySelector('button');
+            const answer = item.querySelector('.faq-answer');
+
+            button?.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Fermer tous les autres items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = '0';
+                        otherItem.querySelector('.faq-answer').classList.add('hidden');
+                    }
+                });
+
+                // Toggle l'item actuel
+                item.classList.toggle('active');
+                if (!isActive) {
+                    answer.classList.remove('hidden');
+                    answer.style.maxHeight = `${answer.scrollHeight}px`;
+                } else {
+                    answer.style.maxHeight = '0';
+                    setTimeout(() => {
+                        answer.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        });
+
+        // Animation des témoignages au scroll
+        const testimonials = document.querySelectorAll('.testimonial-card');
+
+        const testimonialObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
+
+        testimonials.forEach(testimonial => {
+            testimonial.style.opacity = '0';
+            testimonial.style.transform = 'translateY(20px)';
+            testimonial.style.transition = 'all 0.6s ease';
+            testimonialObserver.observe(testimonial);
+        });
+
+        // Animation du footer au scroll
+        const footerSections = document.querySelectorAll('footer .grid > div');
+
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
+
+        footerSections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease';
+            footerObserver.observe(section);
+        });
+    });
+</script>
+
+
+    
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer - Negocy IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white relative overflow-hidden">
+        <!-- Formes décoratives -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full filter blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+        </div>
+
+        <!-- Contenu principal du footer -->
+        <div class="relative z-10">
+            <!-- Section supérieure -->
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <!-- Logo et description -->
+                    <div class="space-y-6" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                                C
+                            </div>
+                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+                                CheckTonContrat IA
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Optimisez l'analyse de vos documents professionnels grâce à l'intelligence artificielle. Une solution innovante pour une efficacité maximale.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                                <span class="sr-only">LinkedIn</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                                <span class="sr-only">Twitter</span>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Navigation rapide -->
+                    <div style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                        <h3 class="text-lg font-semibold mb-6">Navigation</h3>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Accueil</a>
+                            </li>
+                            <li>
+                                <a href="#fonctionnalites" class="text-gray-400 hover:text-white transition-colors duration-300">Fonctionnalités</a>
+                            </li>
+                            <li>
+                                <a href="#faq" class="text-gray-400 hover:text-white transition-colors duration-300">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Liens légaux -->
+                    <div style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                        <h3 class="text-lg font-semibold mb-6">Informations légales</h3>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="{{ url_for('legal_mention') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Mentions légales</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('confidential_policies') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
+                        <h3 class="text-lg font-semibold mb-6">Contact</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <a href="mailto:contact@negocy.pro" class="text-gray-400 hover:text-white transition-colors duration-300">nxplogistics@yahoo.com</a>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <span class="text-gray-400">06 00 00 00 00</span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span class="text-gray-400">Paris, France</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barre de séparation -->
+            <div class="border-t border-gray-800">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-sm text-gray-400">
+                            © 2025 CheckTonContrat IA. Tous droits réservés.
+                        </p>
+                        <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                            <a href="{{ url_for('cgu') }}" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">
+                                Conditions Générales de Vente
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Toggle mobile menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('translate-x-0');
+            document.getElementById('mobile-menu').classList.toggle('translate-x-full');
+        });
+
+        document.querySelector('.mobile-close-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+            document.getElementById('mobile-menu').classList.remove('translate-x-0');
+        });
+
+        // Language dropdown toggle
+        document.getElementById('language-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.language-dropdown').classList.toggle('scale-0');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.querySelector('.language-dropdown');
+            if (!e.target.closest('.language-selector')) {
+                dropdown.classList.add('scale-0');
+            }
+        });
+
+        // Smooth scroll and close mobile menu
+        document.querySelectorAll('.mobile-nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                // Toujours fermer le menu sur mobile
+                if (window.innerWidth < 768) {
+                    document.getElementById('mobile-menu').classList.add('translate-x-full');
+                    document.getElementById('mobile-menu').classList.remove('translate-x-0');
+                }
+            });
+        });
+    </script>
+
+</body></html>

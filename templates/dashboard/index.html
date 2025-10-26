@@ -1,0 +1,132 @@
+{% extends 'dashboard/base.html' %}
+
+<!-- Bootstrap CDN link  -->
+{% block bootstrapcdn %}
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block title %}Mes analyses - CheckTonContrat{% endblock %}
+{% block page_title %}Mes analyses{% endblock %}
+
+
+{% block content %}
+<!-- Statistics card  -->
+<div class="mdc-layout-grid__inner mb-4">
+  <!-- Analyse total  -->
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+    <div class="mdc-card info-card info-card--primary">
+      <div class="card-inner">
+        <h5 class="card-title">Analyse Total</h5>
+        <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ (checks|length) if checks else 0 }}</h5>
+        <p class="tx-12 text-muted">{{ current_date }}</p>
+        <div class="card-icon-wrapper">
+          <i class="material-icons">dvr</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total amount spent  -->
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+    <div class="mdc-card info-card info-card--info">
+      <div class="card-inner">
+        <h5 class="card-title">Montant Dépensé</h5>
+        <h5 class="font-weight-light pb-2 mb-1 border-bottom">€{{ (checks|length) * 2 if checks else 0 }},00</h5>
+        <p class="tx-12 text-muted">{{ current_date }}</p>
+        <div class="card-icon-wrapper">
+          <i class="material-icons">attach_money</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Conforme  -->
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+    <div class="mdc-card info-card info-card--success">
+      <div class="card-inner">
+        <h5 class="card-title">Conforme</h5>
+        <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ total_conforme }}</h5>
+        <p class="tx-12 text-muted">{{ (total_conforme / (checks|length)) * 100 if checks else 0}}% des analyses</p>
+        <div class="card-icon-wrapper">
+          <i class="material-icons">check</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Non Conforme  -->
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-3-desktop mdc-layout-grid__cell--span-4-tablet">
+    <div class="mdc-card info-card info-card--danger">
+      <div class="card-inner">
+        <h5 class="card-title">Non Conforme</h5>
+        <h5 class="font-weight-light pb-2 mb-1 border-bottom">{{ total_non_conforme }}</h5>
+        <p class="tx-12 text-muted">{{ (total_non_conforme / (checks|length)) * 100 if checks else 0 }}% des analyses</p>
+        <div class="card-icon-wrapper">
+          <i class="material-icons">close</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Table of checks list  -->
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Module</th>
+            <th>Fichiers</th>
+            <th>Statut paiement</th>
+            <th>Résultat</th>
+            <th>Effectué le</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for check in checks %}
+              <tr onclick="window.location='{{ url_for('view', id=check.id) }}'" style="cursor: pointer;">
+                <td>{{ loop.index }}</td>
+                <td>{{ check.module.title() }}</td>
+                <td>
+                  {% for f in check.input_files.split(';') if check.input_files %}
+                  <div class="small text-truncate" style="max-width: 220px;">{{ f }}</div>
+                  {% endfor %}
+                </td>
+                <td>
+                  {% if check.has_paid %}
+                    <span class="badge bg-success">Payé</span>
+                  {% else %}
+                    <span class="badge bg-warning text-dark">En attente</span>
+                  {% endif %}
+                </td>
+                <td>
+                {% if check.result %}
+                {% if check.result.lower() == 'conforme' %}
+                <span class="badge bg-success">Conforme</span>
+                {% else %}
+                <span class="badge bg-danger">Non Conforme</span>
+                {% endif %}
+                {% else %}
+                <span class="text-muted">En attente</span>
+                {% endif %}
+                </td>
+                <td>{{ check.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="6" class="text-center text-muted">Aucune analyse pour le moment. Lancez une nouvelle analyse.</td>
+              </tr>
+            {% endfor %}
+ 
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

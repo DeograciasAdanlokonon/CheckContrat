@@ -1,0 +1,222 @@
+<html lang="fr" class="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - CheckTonContrat IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            50: '#f7f7f8',
+                            100: '#ececf1',
+                            200: '#d9d9e3',
+                            300: '#c5c5d2',
+                            400: '#9393a8',
+                            500: '#6b6b7b',
+                            600: '#4b4b55',
+                            700: '#343541',
+                            800: '#202123',
+                            900: '#0f0f10',
+                        },
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #202123;
+            color: #ffffff;
+            overflow-y: auto;
+        }
+        
+        .card {
+            background-color: #2c3e50;
+            border: 1px solid rgba(255,255,255,.1);
+            color: #ffffff;
+        }
+        
+        .form-control, .form-select {
+            background-color: #354a66;
+            color: #ffffff;
+            border-color: rgba(255,255,255,.1);
+        }
+        
+        .text-muted {
+            color: #ffffff !important;
+            opacity: 0.9;
+        }
+        
+        strong {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-dark-800">
+    <!-- Header simplifié -->
+    <header class="bg-dark-700 border-b border-dark-600 py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="{{ url_for('index') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold">C</div>
+                    <span class="text-xl font-bold text-white">CheckTonContrat IA</span>
+                </a>
+                <a href="{{ url_for('index') }}" class="text-white hover:text-primary-500 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Retour au site
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto py-8 px-4">
+        
+<div class="max-w-4xl mx-auto px-4 py-8 text-white">
+    <h1 class="text-3xl font-bold mb-6 border-b pb-2 border-gray-700">Politique de Confidentialité</h1>
+
+    <p class="mb-4 text-dark-300">Dernière mise à jour : 31/10/2025</p>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">PRÉAMBULE</h2>
+        <p class="mb-2">La présente Politique de Confidentialité a pour but d'expliquer comment nous collectons, utilisons et protégeons les données personnelles des utilisateurs de l'application negocy IA (ci-après « l'Application »). Elle est conforme au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">1. IDENTITÉ DU RESPONSABLE</h2>
+        <p class="mb-2">Le traitement des données personnelles est réalisé par :</p>
+        <p><strong>CheckTonContrat.com</strong></p>
+        <p>Entreprise individuelle</p>
+        <p>Adresse: </p>
+        <p>Contact : nxplogistics@yahoo.com</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">2. DONNÉES COLLECTÉES</h2>
+        <p class="mb-2">Nous collectons uniquement les données nécessaires :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Lors de l'inscription : nom, adresse email</li>
+            <li>Lors de l'utilisation de l'Application : données de connexion (IP, date/heure), actions effectuées, documents créés ou importés</li>
+            <li>À travers les cookies (voir ci-dessous)</li>
+        </ul>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">3. FINALITÉS</h2>
+        <p class="mb-2">Ces données sont utilisées uniquement pour :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Fournir et améliorer les services de l'Application</li>
+            <li>Gérer les comptes, abonnements et facturation</li>
+            <li>Assurer le support et la sécurité</li>
+            <li>Respecter nos obligations légales</li>
+        </ul>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">4. BASE LÉGALE</h2>
+        <p class="mb-2">Les traitements sont fondés sur :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>L'exécution du contrat (utilisation de l'Application)</li>
+            <li>Notre intérêt légitime à améliorer nos services</li>
+            <li>Le respect de la loi</li>
+            <li>Votre consentement pour certaines communications (comme les emails promotionnels, si envoyés)</li>
+        </ul>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">5. DURÉE DE CONSERVATION</h2>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Données du compte : conservées pendant la durée de l'utilisation, puis 3 ans après sa fin</li>
+            <li>Données de facturation : conservées 10 ans (obligation légale)</li>
+            <li>Données de connexion : conservées 1 an</li>
+            <li>Documents créés : conservés jusqu'à 3 mois après le dernier usage</li>
+        </ul>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">6. SÉCURITÉ</h2>
+        <p class="mb-2">Nous mettons en œuvre des mesures pour protéger vos données :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Chiffrement (HTTPS)</li>
+            <li>Accès limité aux seules personnes autorisées</li>
+            <li>Hébergement sécurisé en France, certifié ISO/IEC 27001</li>
+        </ul>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">7. COOKIES</h2>
+        <p class="mb-2">L'Application utilise des cookies strictement nécessaires à son bon fonctionnement. Aucun cookie publicitaire ou de suivi tiers n'est utilisé. Vous pouvez refuser ou gérer les cookies dans les paramètres de votre navigateur.</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">8. VOS DROITS</h2>
+        <p class="mb-2">Vous disposez des droits suivants :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Accès à vos données</li>
+            <li>Rectification ou suppression</li>
+            <li>Limitation ou opposition au traitement</li>
+            <li>Portabilité de vos données</li>
+            <li>Définir des directives sur vos données après votre décès</li>
+        </ul>
+        <p class="mt-2">Pour les exercer, contactez : nxplogistics@yahoo.com</p>
+        <p>Si besoin, vous pouvez aussi contacter la CNIL (www.cnil.fr).</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">9. DONNÉES DES CLIENTS (UTILISATEURS DE L'APPLICATION)</h2>
+        <p class="mb-2">Lorsque vous traitez des données personnelles dans vos documents (ex. : DCE, offres…), vous êtes responsable de ces données. Nous, en tant que prestataire technique, n'utilisons jamais ces données à d'autres fins. Nous les traitons uniquement pour vous fournir le service, en toute confidentialité.</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">10. MODIFICATION</h2>
+        <p class="mb-2">Nous pouvons mettre à jour cette Politique. En cas de modification, nous informerons les utilisateurs dans l'Application.</p>
+    </section>
+
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold mb-3">11. CONTACT</h2>
+        <p class="mb-2">Pour toute question :</p>
+        <ul class="list-disc pl-5 space-y-1 mt-2">
+            <li>Email : nxplogistics@yahoo.com</li>
+            <li>Adresse : </li>
+        </ul>
+    </section>
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 text-white py-6 mt-auto border-t border-dark-600">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm">© 2025 CheckTonContrat IA - Tous droits réservés</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="{{ url_for('legal_mention') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Mentions légales</a>
+                    <a href="{{ url_for('confidential_policies') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
+                    <a href="{{ url_for('cgu') }}" class="text-sm text-gray-400 hover:text-white transition-colors">CGU</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+ </body></html>

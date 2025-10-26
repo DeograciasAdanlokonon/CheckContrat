@@ -1,0 +1,343 @@
+from flask import Flask, abort, render_template, redirect, url_for, flash, request, send_from_directory
+from flask_bootstrap import Bootstrap
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import login_user, login_required, LoginManager, current_user, logout_user
+from models.models import db, User, Check
+from models.config import CheckDataBase
+from forms.forms import RegisterForm, LoginForm, ContractForm, FicheContract
+from core.upload import UploadError, save_upload
+from core.openai_engine import OpenaiAnalyse
+from emails.email_utils import confirm_token, send_confirmation_email
+import os
+from pathlib import Path
+from datetime import datetime, date
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SECRET_KEY = os.getenv('APP_SECRET_KEY')
+SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SECURITY_PASSWORD_SALT'] = SECURITY_PASSWORD_SALT
+Bootstrap(app=app)
+
+# Flask Login Manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+login_manager.login_message_category = "warning"
+
+# user loader callback
+@login_manager.user_loader
+def load_user(user_id):
+  return db.get_or_404(User, user_id)
+
+# DataBase configuration
+database = CheckDataBase(app=app)
+
+# Openai engine
+engine = OpenaiAnalyse()
+
+# current year
+current_year = datetime.now().year
+current_date = date.today()
+
+# ToDo: Index Route
+@app.route('/', methods=['GET'])
+def index():
+  return render_template('index.html')
+
+# ToDo: Dashboard Home Route
+@app.route('/dashboard', methods = ['GET', 'POST'])
+def dashboard():
+  """Retuns all the record in the db"""
+
+  if not current_user.is_authenticated:
+    return redirect(url_for('login'))  # send user to login page
+
+  result = db.session.execute(db.select(Check).where(Check.user_id == current_user.id))
+  checks = result.scalars().all()
+
+  # Get statistic
+  total_conforme = sum(1 for c in checks if c.result and c.result.lower() == "conforme")
+  total_non_conforme = sum(1 for c in checks if c.result and c.result.lower() == "non conforme")
+
+  return render_template(
+    'dashboard/index.html', 
+    current_year=current_year, 
+    current_date=current_date, 
+    current_user=current_user, 
+    checks=checks,
+    total_conforme=total_conforme,
+    total_non_conforme=total_non_conforme
+  )
+
+# ToDo: CheckContract Route
+@app.route('/contrat-de-travail', methods=['GET', 'POST'])
+@login_required
+def module_contract():
+  # Initialize Contract form
+  contract_form = ContractForm()
+
+  if contract_form.validate_on_submit():
+    if current_user.is_authenticated:
+      uploaded = contract_form.contract_file.data
+
+      try:
+        filename = save_upload(uploaded, current_user.id)
+
+        # Run Openai Engine and save record in db
+        if filename:
+          prompt = "Analyse ce contrat de travail et indique s'il est conforme au droit du travail français."
+          result = engine.analyse_contract(file=filename, prompt=prompt)
+
+          # create new check
+          new_check = Check(
+            module='contrat',
+            input_files=filename,
+            output_files=result['report_file'],
+            result=result['result'],
+            detail=result['detail'],
+            user_id=current_user.id,
+          )
+
+          # insert new_check
+          db.session.add(new_check)
+          db.session.flush()
+          db.session.commit()
+
+          # head user to view detail route
+          return redirect(url_for('view', id=new_check.id))
+
+        else:
+          flash("Aucun fichier sélectionné !", "info")
+
+      except UploadError as e:
+        flash(str(e), "danger")
+        return redirect(url_for("module_contrat"))
+
+      flash("Fichier uploadé avec succès.", "success")
+      # return redirect(url_for("dashboard.index"))
+
+  # GET -> render template with form
+  return render_template('dashboard/module_contrat.html', contract_form=contract_form, current_year=current_year)
+
+# ToDo: FicheContract Route
+@app.route('/fiche-de-paie', methods=['GET', 'POST'])
+@login_required
+def module_fiche():
+  # Initialize Contract form
+  fiche_form = FicheContract()
+
+  if fiche_form.validate_on_submit():
+    if current_user.is_authenticated:
+      fiche_uploaded = fiche_form.fiche_file.data
+      contract_uploaded = fiche_form.contract_file.data
+
+    try:
+      fiche_name = save_upload(fiche_uploaded, current_user.id)
+      contract_name = save_upload(contract_uploaded, current_user.id)
+
+      # Run Openai Engine and save record in db
+      if fiche_name and contract_name:
+        prompt = "Vérifie si la fiche de paie correspond bien au contrat et identifie toute anomalie, conformement au droit du travail français."
+
+        result = engine.analyse_fiche(fiche_file=fiche_name, contrat_file=contract_name, prompt=prompt)
+
+        # create new check
+        new_check = Check(
+          module='fiche',
+          input_files=f'{fiche_name};{contract_name}',
+          output_files=result['report_file'],
+          result=result['result'],
+          detail=result['detail'],
+          user_id=current_user.id,
+        )
+
+        # insert new_check
+        db.session.add(new_check)
+        db.session.flush()
+        db.session.commit()
+
+        # head user to view detail route
+        return redirect(url_for('view', id=new_check.id))
+      else:
+        flash('Aucun fichier sélectionné !', 'info')
+    except UploadError as e:
+      flash(str(e), "danger")
+      return redirect(url_for("module_fiche"))
+
+    flash("Fichier uploadé avec succès.", "success")
+    # return redirect(url_for("dashboard.index"))
+
+  return render_template('dashboard/module_fiche.html', fiche_form=fiche_form, current_year=current_year)
+
+# ToDo: View Check Result Route
+@app.route('/check-result/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view(id):
+  check = db.get_or_404(Check, id)
+  return render_template('dashboard/view.html', check=check)
+
+# ToDo: Register Route
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+  register_form = RegisterForm()
+
+  try:
+   # On submit
+   if register_form.validate_on_submit():
+     username = register_form.username.data
+     email = register_form.email.data
+
+     # Check password equal
+     if register_form.password.data == register_form.confirm_password.data:
+       password = generate_password_hash(register_form.password.data, salt_length=8)
+
+       # Check if user already exist
+       result = db.session.execute(db.select(User).where(User.email == email))
+       user = result.scalar()
+
+       if not user:
+         # create new user
+          new_user = User(
+            username=username,
+            email=email,
+            password_hash = password
+          )
+
+          # insert new user in db
+          db.session.add(new_user)
+          db.session.commit()
+
+          # Send confirmation email
+          send_confirmation_email(new_user)
+
+          flash("Un lien de confirmation a été envoyé. Veuillez vérifiez votre boîte mail.", "info")
+
+       else:
+         flash('Vous aviez déja un compte avec cet email. Veuillez vous connecter !', 'warning')
+         
+         # head user to login page
+         return redirect(url_for('login'))
+     else:
+       flash('Vos mots de passe doivent être égaux', 'error')
+  except Exception as e:
+    flash(f'Something went wrong: {e}', 'error')
+  
+  return render_template('register.html', register_form=register_form)
+
+# ToDo: Login Route
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+  # Initialize login form
+  login_form = LoginForm()
+
+  try:
+    # if form submitted
+    if login_form.validate_on_submit():
+      email = login_form.email.data
+      password = login_form.password.data
+
+      # check if user exits in db
+      result = db.session.execute(db.select(User).where(User.email == email))
+      user = result.scalar()
+
+      if user and user.confirmed_email:
+        # check password is correct
+        if check_password_hash(user.password_hash, password=password):
+          # then let user log in
+          login_user(user=user)
+
+          # head user to dashboard page
+          return redirect(url_for('dashboard', logged_in=current_user.is_authenticated))
+        else:
+          flash('Mot de passe incorrect ! Veuillez réessayer.', 'warning')
+      else:
+        flash("Cet adresse email n'existe pas ou non confirmé. Veuillez réessayer !", 'danger')
+  except Exception as e:
+    flash(f'Quelque chose à mal fonctionné : {e}', 'danger')
+  
+  return render_template('login.html', login_form=login_form)
+
+
+# ToDo: Confirm Email Route
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    email = confirm_token(token)
+    if not email:
+        flash('Le lien de confirmation est invalide ou déja expiré.', 'danger')
+        return redirect(url_for('register'))
+
+    user = User.query.filter_by(email=email).first_or_404()
+
+    if user.confirmed_email:
+        flash('Compte déja vérifiéé. Veuillez vous connecter.', 'info')
+    else:
+        user.confirmed_email = True
+        db.session.commit()
+        flash('Votre email a été confirmé ! Veuillez vous connecter.', 'success')
+
+    return redirect(url_for('login'))
+
+# Define absolute paths
+CORE_DIR = Path(__file__).resolve().parent / "core"
+INPUT_DIR = CORE_DIR / "input-files"
+OUTPUT_DIR = CORE_DIR / "output-files"
+
+@app.route("/download/<path:filename>")
+@login_required
+def download_file(filename):
+  """
+  Allow a logged-in user to download one of their input or output files.
+  The filename must exist in either input-files or output-files.
+  """
+  # Normalize filename
+  safe_filename = Path(filename).name  # removes any path traversal like ../../
+
+  # Check both directories
+  input_path = INPUT_DIR / safe_filename
+  output_path = OUTPUT_DIR / safe_filename
+
+  if input_path.exists():
+      directory = INPUT_DIR
+  elif output_path.exists():
+      directory = OUTPUT_DIR
+  else:
+      abort(404, description="File not found")
+
+  # Optionally, verify the file belongs to current_user
+  # (if filenames start with user_id, like '12_abC123.pdf')
+  if not safe_filename.startswith(f"{current_user.id}_") and not safe_filename.startswith("report_"):
+      abort(403, description="Accèss non autorisé a ce fichier")
+
+  # Serve file
+  return send_from_directory(directory, safe_filename, as_attachment=True)
+
+
+# Todo: Logout Route
+@app.route('/logout')
+def logout():
+  logout_user()
+  return redirect(url_for('index'))
+
+# ToDo: Mention Legales Route
+@app.route('/mentions-legales', methods=['GET'])
+def legal_mention():
+  return render_template('mention-legales.html')
+
+# ToDo: Politque Confidentiel Route
+@app.route('/politique-de-confidentialite', methods=['GET'])
+def confidential_policies():
+  return render_template('confidential-policies.html')
+
+# ToDo: CGU Route
+@app.route('/cgu')
+def cgu():
+  return render_template('cgu.html')
+
+
+if __name__ == "__main__":
+  app.run(debug=True, port=5002)

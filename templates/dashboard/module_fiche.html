@@ -1,0 +1,38 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% from 'bootstrap5/form.html' import render_field %}
+{% extends 'dashboard/base.html' %}
+
+<!-- Bootstrap CDN link  -->
+{% block bootstrapcdn %}
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+{% endblock %}
+
+
+{% block title %}Nouvelle analyse - Fiche de paie{% endblock %}
+{% block page_title %}Analyse Fiche de Paie{% endblock %}
+
+
+{% block content %}
+<div class="card">
+<div class="card-body">
+<p class="text-muted">Fournissez la fiche de paie et le contrat. Le prix de l'analyse est de 2 € TTC.</p>
+
+
+<form method="post" enctype="multipart/form-data">
+{{ fiche_form.csrf_token() }}
+
+<!-- ToDo: Fiche form  -->
+{% block form %}
+<!-- Render WTForm fields here -->
+{{ render_field(fiche_form.fiche_file, class="mb-3") }}
+{{ render_field(fiche_form.contract_file, class="mb-3") }}
+{{ render_field(fiche_form.nombre_heure, class="mb-3") }}
+{{ render_field(fiche_form.submit, class="mdc-button mdc-button--raised mdc-ripple-upgraded ") }}
+{% endblock %}
+</form>
+</div>
+</div>
+{% endblock %}

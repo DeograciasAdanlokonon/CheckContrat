@@ -1,0 +1,249 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% from 'bootstrap5/form.html' import render_field %}
+<html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - CheckTonContrat.IA</title>
+
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #1a1a2e, #16213e);
+            min-height: 100vh;
+        }
+        .auth-container {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .auth-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .auth-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+        .auth-button {
+            background: linear-gradient(to right, #6366f1, #8b5cf6);
+        }
+        .auth-button:hover {
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+        }
+        .logo-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+            }
+        }
+
+        .role-option {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .role-option input[type="radio"]:checked + label {
+            border-color: #6366f1;
+            background-color: rgba(99, 102, 241, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .role-option input[type="radio"]:checked + label i.fa-check-circle {
+            opacity: 1;
+        }
+
+        .role-option label:hover {
+            background-color: rgba(75, 85, 99, 0.5);
+            transform: scale(1.02);
+        }
+
+        .role-option .role-icon {
+            transition: color 0.3s ease;
+        }
+
+        .role-option:hover .role-icon {
+            color: #818cf8;
+        }
+
+        .role-option input[type="radio"]:checked + label .role-icon {
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mb-6 logo-glow">
+                C
+            </div>
+            <h2 class="text-center text-3xl font-extrabold">
+                Créez votre compte 
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-400">
+                Rejoignez CheckTonContrat IA et commencez à analyser vos contrats fiches
+            </p>
+        </div>
+
+        <!-- Flash messages (Tailwind version) -->
+        <div class="max-w-2xl mx-auto mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div 
+                class="relative mb-3 rounded-lg px-4 py-3 text-sm font-medium text-white 
+                {% if category == 'success' %} bg-green-500 
+                {% elif category == 'error' %} bg-red-500 
+                {% elif category == 'warning' %} bg-yellow-500 
+                {% elif category == 'info' %} bg-blue-500 
+                {% else %} bg-gray-500 {% endif %}"
+                role="alert"
+            >
+                {{ message }}
+                <button 
+                type="button" 
+                class="absolute top-2 right-2 text-white/80 hover:text-white"
+                onclick="this.parentElement.remove()"
+                aria-label="Close"
+                >
+                ✕
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        </div>
+
+
+        <!-- Register Form  -->
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="auth-container py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10">
+                <form method="POST" action="" class="space-y-6">
+                    {{ register_form.csrf_token() }}
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-300">
+                            Nom d'utilisateur
+                        </label>
+                        <div class="mt-1 relative rounded-lg shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-500"></i>
+                            </div>
+                            {{ render_field(register_form.username, class="auth-input block w-full pl-10 pr-3 py-2 text-white rounded-lg focus:outline-none sm:text-sm", placeholder="Choisissez un nom d'utilisateur") }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300">
+                            Email
+                        </label>
+                        <div class="mt-1 relative rounded-lg shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-500"></i>
+                            </div>
+                            {{ render_field(register_form.email, class="auth-input block w-full pl-10 pr-3 py-2 text-white rounded-lg focus:outline-none sm:text-sm", placeholder="Votre adresse email professionnelle") }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-300">
+                            Mot de passe
+                        </label>
+                        <div class="mt-1 relative rounded-lg shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-500"></i>
+                            </div>
+                            {{ render_field(register_form.password, class="auth-input block w-full pl-10 pr-10 py-2 text-white rounded-lg focus:outline-none sm:text-sm", placeholder="Choisissez un mot de passe sécurisé", id="password") }}
+                            
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i id="togglePassword" class="fas text-gray-500 cursor-pointer hover:text-gray-400 fa-eye" onclick="togglePassword('password', 'togglePassword')"></i>
+                            </div>
+                        </div>
+                        <div class="mt-1 text-xs text-gray-400">
+                            Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule, un chiffre et un caractère spécial.
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="confirm_password" class="block text-sm font-medium text-gray-300">
+                            Confirmation du mot de passe
+                        </label>
+                        <div class="mt-1 relative rounded-lg shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-500"></i>
+                            </div>
+                            {{ render_field(register_form.confirm_password, class="auth-input block w-full pl-10 pr-10 py-2 text-white rounded-lg focus:outline-none sm:text-sm", placeholder="Confirmez votre mot de passe", id="confirm_password") }}
+                            
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i id="togglePasswordConfirm" class="fas fa-eye text-gray-500 cursor-pointer hover:text-gray-400" onclick="togglePassword('password_confirm', 'togglePasswordConfirm')"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2 mt-2">
+                        {{ render_field(register_form.agree_terms, class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-700 rounded bg-gray-800") }}
+                        <label for="agree_terms" class="text-sm text-gray-300">
+                            J'accepte les <a href="{{ url_for('cgu') }}" target="_blank" class="text-indigo-400 hover:text-indigo-300">conditions d'utilisation</a> et la <a href="{{ url_for('confidential_policies') }}" target="_blank" class="text-indigo-400 hover:text-indigo-300">politique de confidentialité</a>
+                        </label>
+                    </div>
+
+                    <div>
+                        {{ render_field(register_form.submit, class="auth-button w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white focus:outline-none transition-all duration-200 transform hover:scale-[1.02]") }}
+                    </div>
+                </form>
+
+                <p class="mt-6 text-center text-sm text-gray-400">
+                    Déjà inscrit ?
+                    <a href="{{ url_for('login') }}" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-200">
+                        Connectez-vous ici
+                    </a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+<script>
+function showNotification(message, type) {
+    const backgroundColor = type === 'error' ? '#EF4444' : type === 'success' ? '#10B981' : '#6366F1';
+    if (typeof Toastify === 'function') {
+        Toastify({
+            text: message,
+            duration: 5000,
+            gravity: "top",
+            position: "right",
+            backgroundColor,
+            stopOnFocus: true,
+            className: "rounded-lg",
+        }).showToast();
+    }
+}
+
+function togglePassword(inputId, iconId) {
+    const passwordInput = document.getElementById(inputId);
+    const toggleIcon = document.getElementById(iconId);
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+</script>
+
+</body></html>

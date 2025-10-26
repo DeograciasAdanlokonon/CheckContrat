@@ -1,0 +1,168 @@
+/* Styles gÃ©nÃ©raux */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Styles pour les tableaux de bord */
+.dashboard-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Styles pour les boutons */
+.btn-primary {
+    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    transform: translateY(-2px);
+}
+
+/* Styles pour les formulaires */
+.form-input {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Styles pour les notifications */
+.notification {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Styles pour les badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-blue {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-green {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-yellow {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-purple {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+/* Styles pour les icÃ´nes */
+.icon {
+    transition: color 0.3s ease;
+}
+
+.icon:hover {
+    color: #6366f1;
+}
+
+/* Styles pour les liens */
+.link {
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #4f46e5;
+}
+
+/* Styles pour les tableaux */
+.table-row {
+    transition: background-color 0.3s ease;
+}
+
+.table-row:hover {
+    background-color: #f9fafb;
+}
+
+/* Styles pour les barres de progression */
+.progress-bar {
+    transition: width 0.5s ease;
+}
+
+/* Styles pour les avatars */
+.avatar {
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Styles pour les cartes */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Styles pour les boutons de sÃ©lection de rÃ´le */
+.role-option {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.role-option input[type="radio"]:checked + label {
+    border-color: #6366f1;
+    background-color: rgba(99, 102, 241, 0.2);
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.role-option input[type="radio"]:checked + label i.fa-check-circle {
+    opacity: 1;
+}
+
+.role-option label:hover {
+    background-color: rgba(75, 85, 99, 0.5);
+    transform: scale(1.02);
+}
+
+.role-option .role-icon {
+    transition: color 0.3s ease;
+}
+
+.role-option:hover .role-icon {
+    color: #818cf8;
+}
+
+.role-option input[type="radio"]:checked + label .role-icon {
+    color: #6366f1;
+} 
