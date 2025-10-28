@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, PasswordField, SubmitField, HiddenField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms.validators import DataRequired, Email, Length, EqualTo
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 
@@ -27,6 +27,16 @@ class ProfileForm(FlaskForm):
   email = EmailField("Votre email", validators=[DataRequired(), Length(4, 120)])
   new_password = PasswordField("Nouveau mot de passe")
   submit = SubmitField("Sauvegarder")
+
+
+class RequestPasswordForm(FlaskForm):
+    email = EmailField("Email", validators=[DataRequired(), Length(4, 120)])
+    submit = SubmitField("Envoyer")
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Nouveau mot de passe", validators=[DataRequired(), Length(min=8)])
+    confirm = PasswordField("Confirmez le mot de passe", validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField("Réinitialiser le mot de passe")
 
 
 # ToDo: ContractForm

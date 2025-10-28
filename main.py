@@ -4,10 +4,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, LoginManager, current_user, logout_user
 from models.models import db, User, Check
 from models.config import CheckDataBase
-from forms.forms import RegisterForm, LoginForm, ProfileForm, ContractForm, FicheContract
+from forms.forms import RegisterForm, LoginForm, ProfileForm, ContractForm, FicheContract, RequestPasswordForm, ResetPasswordForm
 from core.upload import UploadError, save_upload
 from core.openai_engine import OpenaiAnalyse
-from emails.email_utils import confirm_token, send_confirmation_email
+from emails.email_utils import confirm_token, send_confirmation_email, generate_confirmation_token, send_reset_email
 import os
 from pathlib import Path
 from datetime import datetime, date
@@ -349,6 +349,50 @@ def profile():
       flash(f'Une erreur est survenue: {e}', 'danger')
 
   return render_template('dashboard/profile.html', form=profile_form, current_user=current_user, current_year=current_year)
+
+# ToDo: Request Password Route
+@app.route('/request-password', methods=['GET', 'POST'])
+def request_password():
+    form = RequestPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            token = generate_confirmation_token(user.email)
+            send_reset_email(user.email, token)
+            flash("Un lien de réinitialisation a été envoyé à votre adresse e-mail.", "success")
+        else:
+            flash("Aucun compte trouvé avec cette adresse e-mail.", "danger")
+    return render_template('auth/request_password.html', form=form)
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+
+    email = confirm_token(token)
+    if not email:
+        flash("Le lien de réinitialisation est invalide ou expiré.", "danger")
+        return redirect(url_for('request_password'))
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        flash("Utilisateur introuvable.", "danger")
+        return redirect(url_for('request_password'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        try:
+            user.password_hash = generate_password_hash(form.password.data, salt_length=8)
+            db.session.commit()
+            flash("Votre mot de passe a été réinitialisé avec succès. Vous pouvez vous connecter.", "success")
+            return redirect(url_for('login'))
+        except Exception as e:
+            db.session.rollback()
+            app.logger.exception("Error resetting password: %s", e)
+            flash("Une erreur est survenue. Réessayez plus tard.", "danger")
+            return redirect(url_for('request_password'))
+
+    return render_template('auth/reset_password.html', form=form)
 
 # ToDo: Mention Legales Route
 @app.route('/mentions-legales', methods=['GET'])
