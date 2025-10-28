@@ -1,0 +1,78 @@
+{% from 'bootstrap5/form.html' import render_field %}
+{% extends 'dashboard/base.html' %}
+
+<!-- Bootstrap CDN link  -->
+{% block bootstrapcdn %}
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block title %}Mon profil - CheckTonContrat{% endblock %}
+{% block page_title %}Mon profil{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid px-0">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+
+      <div class="border-0">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom-0">
+          <h5 class="mb-0 mdc-theme--primary"><i class="bi bi-person-circle me-2"></i>Informations du compte</h5>
+        </div>
+        
+        <div class="card-body">
+          <!-- Profile form -->
+          <form method="POST">
+            {{ form.csrf_token() }}
+
+            <div class="mb-3">
+              {{ render_field(form.username, class="mb-3", value=current_user.username) }}
+
+            </div>
+
+            <div class="mb-3">
+              {{ render_field(form.email, class="mb-3", value=current_user.email) }}
+
+            </div>
+
+            <div class="mb-3">
+              {{ render_field(form.new_password, placeholder="Nouveau mot de passe (laisser vide si inchangé)", class="mb-3") }}
+
+            </div>
+
+            <div class="text-end">
+              {{ render_field(form.submit, class="mdc-button mdc-button--raised mdc-ripple-upgraded") }}
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body text-center">
+          <p class="text-muted mb-2">Dernière mise à jour :</p>
+          <h6>{{ current_user.created_at.strftime('%d/%m/%Y à %H:%M') }}</h6>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

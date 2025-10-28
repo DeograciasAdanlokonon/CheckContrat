@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CheckTonContrat IA - Assistant Intelligent pour analyser les contrats</title>
+    <title>CheckTonContrat - Système d'analyse de contrats</title>
     <meta name="description" content="Negocy : logiciel IA analyse de contrats et fiches de paie France. Entreprises : analyses vos contrats plus vite. Acheteurs publics : analysez et comparez contrats et fiches de paies automatiquement.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -17,9 +17,11 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16 md:h-20">
                     <!-- Logo et nom -->
-                    <a href="/" class="flex items-center space-x-2 group">
-                        <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg md:text-xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">C</div>
-                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden sm:inline-block">CheckTonContrat IA</span>
+                    <a href="{{ url_for('index') }}" class="flex items-center space-x-2 group">
+                        <div class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center text-white font-bold text-lg md:text-xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+                            <img src="/static/images/logo.png" alt="Logo Mascotte">
+                        </div>
+                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden sm:inline-block">CheckTonContrat</span>
                     </a>
 
                     <!-- Navigation principale - Desktop -->
@@ -48,7 +50,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
-                            <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 transform scale-0 origin-top transition-transform duration-200 z-50 language-dropdown">
+                            <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 transform origin-top transition-transform duration-200 z-50 language-dropdown scale-0" style="transform: scale(0);">
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 flex items-center space-x-2">
                                     <span class="w-5 h-5 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-600 font-medium text-xs">FR</span>
                                     <span>Français</span>
@@ -78,7 +80,7 @@
         </div>
 
         <!-- Menu mobile avec design amélioré -->
-        <div class="md:hidden fixed inset-0 bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 ease-in-out z-40 mobile-menu" id="mobile-menu">
+        <div class="md:hidden fixed inset-0 bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400/95 backdrop-blur-md transform transition-transform duration-300 ease-in-out z-40 mobile-menu translate-x-full" id="mobile-menu">
             <div class="h-full flex flex-col">
                 <!-- Bouton fermeture -->
                 <div class="flex justify-end p-4">
@@ -94,12 +96,12 @@
                     <a href="/" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Accueil</a>
                     <a href="#fonctionnalites" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Fonctionnalités</a>
                     <a href="#faq" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">FAQ</a>
-                    <a href="/login/" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Se connecter</a>
+                    <a href="{{ url_for('login') }}" class="mobile-nav-link text-2xl text-white hover:text-yellow-300 transition-colors duration-300 font-semibold tracking-wide">Se connecter</a>
                 </div>
 
                 <!-- Footer optionnel du menu -->
                 <div class="p-4 text-center text-white/80 text-sm border-t border-white/20">
-                    © 2025 CheckTonContrat IA. Tous droits réservés.
+                    © {{ current_year }} CheckTonContrat. Tous droits réservés.
                 </div>
             </div>
         </div>
@@ -137,7 +139,7 @@
                     <span class="block reveal-title-1 opacity-0 transform -translate-y-8" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
                         Analyser vos
                         <span class="relative inline-block">
-                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 transition-transform duration-300">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600 hover:scale-105 transition-transform duration-300">
                                 contrats et fiches
                             </span>
                             <svg class="absolute -bottom-2 left-0 w-full h-2 text-indigo-600/20" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -146,13 +148,13 @@
                         </span>
                     </span>
                     <span class="block reveal-title-2 opacity-0 transform translate-y-8 text-3xl sm:text-4xl mt-4" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
-                        avec l'intelligence artificielle
+                        avec notre système intelligente
                     </span>
                 </h1>
 
                 <!-- Sous-titre avec effet de fondu -->
                 <p class="text-xl text-gray-600 mb-10 leading-relaxed reveal-text opacity-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
-                    CheckTonContrat AI permet aux utilisateurs de soumettre leur contrat de travail ou leur fiche de paie afin de vérifier automatiquement leur conformité grâce à l’intelligence artificielle.
+                    CheckTonContrat permet aux utilisateurs de soumettre leur contrat de travail ou leur fiche de paie afin de vérifier automatiquement leur conformité grâce à système d'analyse.
                 </p>
 
                 <!-- Boutons d'action avec effets hover -->
@@ -170,24 +172,11 @@
                 </div>
 
                 <!-- Statistiques avec animation -->
-                <div class="grid grid-cols-3 gap-4 mt-16 reveal-stats opacity-0">
-                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
-                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 counter" data-target="95">0</div>
-                        <div class="text-sm text-gray-600">% de temps gagné</div>
-                    </div>
-                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
-                        <div class="text-2xl sm:text-3xl font-bold text-purple-600 mb-1 counter" data-target="1000">0</div>
-                        <div class="text-sm text-gray-600">Contrats analysés</div>
-                    </div>
-                    <div class="stat-item p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg">
-                        <div class="text-2xl sm:text-3xl font-bold text-pink-600 mb-1 counter" data-target="99">0</div>
-                        <div class="text-sm text-gray-600">% de satisfaction</div>
-                    </div>
-                </div>
+                
             </div>
 
             <!-- Image du robot IA -->
-            <div class="hidden lg:flex justify-center items-center relative">
+            <div class="lg:flex justify-center items-center relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 rounded-full filter blur-3xl opacity-30 animate-pulse-slow"></div>
                 <div class="relative z-10 transform hover:scale-105 transition-transform duration-500 drop-shadow-2xl">
                     <img src="/static/images/ia_assistant.png" alt="Assistant IA pour les appels d'offres" class="rounded-2xl max-w-md w-full mx-auto">
@@ -201,7 +190,7 @@
 <div class="loader fixed inset-0 z-50 flex items-center justify-center bg-white" style="opacity: 0; display: none;">
     <div class="loader-content">
         <span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-            CheckTonContrat IA
+            CheckTonContrat
         </span>
     </div>
 </div>
@@ -215,11 +204,11 @@
 <section id="fonctionnalites" class="py-24 bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-20">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
                 Une solution complète pour une vérifications premium
             </h2>
             <p class="text-xl text-gray-600">
-                CheckTonContrat IA vous garantie une vérification et analyse premium de vos contrats de travail et fiches de paie avec des outils intelligents adaptés à vos besoins.
+                CheckTonContrat vous garantie une vérification et analyse premium de vos contrats de travail et fiches de paie avec des outils adaptés à vos besoins.
             </p>
         </div>
 
@@ -232,7 +221,7 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Analyse intelligente</h3>
                     <p class="text-gray-600 mb-6">
-                        Téléchargez votre contrat/fiche et notre IA analyse instantanément les exigences, conformité et points clés pour optimiser votre réponse.
+                        Téléchargez votre contrat/fiche et notre système analyse instantanément les exigences, conformité et points clés pour optimiser votre réponse.
                     </p>
                     <ul class="space-y-3 mb-6">
                         <li class="flex items-start">
@@ -245,7 +234,7 @@
                             <svg class="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span> L’IA identifie et explique toute erreur</span>
+                            <span> CheckTonContrat identifie et explique toute erreur</span>
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
@@ -261,12 +250,12 @@
             <!-- Carte 2 : Génération de documents -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
                 <div class="p-8">
-                    <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mb-6 text-purple-600 text-2xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mb-6 text-indigo-600 text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Contrat de Travail</h3>
                     <p class="text-gray-600 mb-6">
-                        Analyse de vos contrats de travail conformes aux exigences réglementaires en quelques secondes grâce à notre IA spécialisée.
+                        Analyse de vos contrats de travail conformes aux exigences réglementaires en quelques secondes grâce à notre système spécialisé.
                     </p>
                     <ul class="space-y-3 mb-6">
                         <li class="flex items-start">
@@ -330,20 +319,82 @@
     </div>
 </section>
 
+<!-- Section comment ça fonctionne  -->
+ <section class="py-16 px-6 text-center text-white font-sans">
+    <!-- Top buttons -->
+    <div class="flex flex-col sm:flex-row justify-center gap-12 mb-10">
+        <a href="{{ url_for('login') }}"
+            class="bg-indigo-900 hover:bg-indigo-800 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            Vérifier un Contrat de Travail <br />
+            <span class="text-xl font-semibold">2€</span>
+        </a>
+        <a href="{{ url_for('login') }}"
+            class="bg-indigo-900 hover:bg-indigo-800 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            Vérifier une Fiche de Paie <br />
+            <span class="text-xl font-semibold">2€</span>
+        </a>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+    Comment ça fonctionne ?
+    </h2>
+
+    <!-- Steps  -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <!-- Step 1 -->
+        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-4 0-7 1.5-7 3.5V19h14v-1.5c0-2-3-3.5-7-3.5z" />
+          </svg>
+          <p class="text-base font-medium">Créez un compte</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          <p class="text-base font-medium">Téléversez votre document</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-2 4H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" />
+          </svg>
+          <p class="text-base font-medium">Payez <br />2€</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8h8M8 8H6a2 2 0 1 1 2-2v2Zm0 8h8m-8 0H6a2 2 0 1 0 2 2v-2Zm8 0V8m0 8h2a2 2 0 1 1-2 2v-2Zm0-8h2a2 2 0 1 0-2-2v2Z"/>
+            </svg>
+
+          <p class="text-base font-medium">
+            Le système vous donne le rapport d'analyse
+          </p>
+        </div>
+
+    </div>
+    
+ </section>
 
 <!-- Section Pour qui -->
 <section id="pour-qui" class="py-24 bg-gradient-to-b from-gray-50 to-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-                Pour qui est conçu CheckTonContrat IA ?
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+                Pour qui est conçu CheckTonContrat ?
             </h2>
             <p class="text-xl text-gray-600">
-                Une solution adaptée aux besoins spécifiques des étudiants, salariés et apprentis
+                Une solution adaptée aux besoins spécifiques des étudiants, salariés et apprentis et tout professionnel.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <!-- Etudiants -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
                 <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
@@ -393,17 +444,17 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Apprentis -->
+   
+            <!-- Salaries -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
                 <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
                 <div class="relative z-10">
                     <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-3xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                        <i class="fas fa-screwdriver"></i>
+                        <i class="fas fa-user-doctor"></i>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les apprentis</h3>
+                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les salariés</h3>
                     <p class="text-lg text-gray-600 mb-8">
-                        Analysez vos contrats de travail pour une bonne décision et réussite professionnelle.
+                        Vérifiez la conformité de vos fiches de paies pour garantir un contrôle judicieux.
                     </p>
 
                     <ul class="space-y-4 mb-8">
@@ -412,7 +463,7 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span class="text-gray-700">
-                                <strong class="font-semibold">Gagnez du temps</strong> en analysant rapidement les contrats complexes
+                                <strong class="font-semibold">Analysez des fiches de paies</strong> conformes et optimisés rapidement
                             </span>
                         </li>
                         <li class="flex items-start">
@@ -420,7 +471,7 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span class="text-gray-700">
-                                <strong class="font-semibold">Créez des mémoires techniques</strong> parfaitement adaptés aux attentes
+                                <strong class="font-semibold">Comparez les fiches de paie</strong> avec des critères objectifs
                             </span>
                         </li>
                         <li class="flex items-start">
@@ -428,7 +479,7 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span class="text-gray-700">
-                                <strong class="font-semibold">Améliorez la qualité</strong> de vos réponses aux appels d'offres
+                                <strong class="font-semibold">Assurez la conformité</strong> juridique de vos fiches de paie
                             </span>
                         </li>
                     </ul>
@@ -443,72 +494,19 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Salaries -->
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-600/5 to-pink-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
-                <div class="relative z-10">
-                    <div class="w-16 h-16 rounded-xl bg-purple-100 flex items-center justify-center mb-6 text-purple-600 text-3xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
-                        <i class="fas fa-user-doctor"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les salariés</h3>
-                    <p class="text-lg text-gray-600 mb-8">
-                        Vérifiez la conformité de vos fiches de paies pour garantir un contrôle judicieux.
-                    </p>
-
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-gray-700">
-                                <strong class="font-semibold">Analysez des fiches de paies</strong> conformes et optimisés rapidement
-                            </span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-gray-700">
-                                <strong class="font-semibold">Comparez les fiches de paie</strong> avec des critères objectifs
-                            </span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-purple-600 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-gray-700">
-                                <strong class="font-semibold">Assurez la conformité</strong> juridique de vos fiches de paie
-                            </span>
-                        </li>
-                    </ul>
-
-                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-purple-600 hover:bg-purple-700 transition-colors duration-300">
-                        <span class="flex items-center">
-                            Démarrez Maintenant
-                            <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 </section>
-
-
-
 
 <!-- Section FAQ avec accordéon -->
 <section class="py-24 bg-gray-50" id="faq">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
                 Questions fréquentes
             </h2>
             <p class="text-xl text-gray-600">
-                Tout ce que vous devez savoir sur CheckTonContrat IA
+                Tout ce que vous devez savoir sur CheckTonContrat
             </p>
         </div>
 
@@ -525,7 +523,7 @@
                     </button>
                     <div class="faq-answer px-6 pb-4 hidden">
                         <p class="text-gray-600">
-                            Notre IA analyse vos documents en utilisant des algorithmes de traitement du langage naturel avancés. Elle identifie automatiquement les informations clés, les exigences techniques et les critères d'évaluation. Le système génère ensuite un rapport détaillé avec des recommandations personnalisées.
+                            Notre système analyse vos documents en utilisant des algorithmes de traitement du langage naturel avancés. Elle identifie automatiquement les informations clés, les exigences techniques et les critères d'évaluation. Le système génère ensuite un rapport détaillé avec des recommandations personnalisées.
                         </p>
                     </div>
                 </div>
@@ -540,7 +538,7 @@
                     </button>
                     <div class="faq-answer px-6 pb-4 hidden">
                         <p class="text-gray-600">
-                            CheckTonContrat IA peut analyser les documents suivants : Contrat de travail et Fiche de paie. Notre système est capable de traiter les documents PDF eet Word.
+                            CheckTonContrat peut analyser les documents suivants : Contrat de travail et Fiche de paie. Notre système est capable de traiter les documents PDF eet Word.
                         </p>
                     </div>
                 </div>
@@ -604,7 +602,7 @@
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
                 Ce que nos clients disent
             </h2>
             <p class="text-xl text-gray-600">
@@ -645,7 +643,7 @@
                             </svg>
                         </div>
                         <p class="text-gray-600 italic">
-                            "CheckTonContrat IA a révolutionné notre façon de traiter les contrats. Le gain de temps est considérable et la précision de l'analyse nous permet d'être plus efficaces."
+                            "CheckTonContrat a révolutionné notre façon de traiter les contrats. Le gain de temps est considérable et la précision de l'analyse nous permet d'être plus efficaces."
                         </p>
                     </div>
                 </div>
@@ -680,7 +678,7 @@
                             </svg>
                         </div>
                         <p class="text-gray-600 italic">
-                            "L'IA est vraiment impressionnante dans son analyse des documents. Elle repère des détails que nous aurions pu manquer. Un outil indispensable !"
+                            "Le système est vraiment impressionnant dans son analyse des documents. Elle repère des détails que nous aurions pu manquer. Un outil indispensable !"
                         </p>
                     </div>
                 </div>
@@ -725,8 +723,94 @@
     </div>
 </section>
 
+<!-- Section contact  -->
+<section aria-labelledby="contact-heading" class="py-12 bg-gray-55">
+    <div class="max-w-4xl mx-auto px-6 bg-gray-1">
+        <div class="bg-white shadow-sm rounded-2xl overflow-hidden">
+        <div class="sm:flex">
+        <!-- Left: Text -->
+        <div class="sm:w-1/2 p-8 sm:p-10 bg-gray-50">
+        <h2 class="text-3xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">Nous Joindre</h2>
+        <p class="mt-3 text-gray-600">Vous avez une question, un commentaire ou un projet dont vous aimeriez discuter ? Envoyez-nous votre adresse e-mail et un bref message, et nous vous répondrons dans les plus brefs délais.</p>
+
+
+        <dl class="mt-6 space-y-4 text-sm text-gray-600">
+        <div class="flex items-start">
+        <svg class="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12v4a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h8a2 2 0 012 2v4z" />
+        </svg>
+        <div>
+        <dt class="font-medium text-gray-900">Support</dt>
+        <dd class="mt-1">nxplogistics@yahoo.com</dd>
+        </div>
+        </div>
+
+        <div class="flex items-start">
+        <svg class="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <div>
+        <dt class="font-medium text-gray-900">Reponse en temp</dt>
+        <dd class="mt-1">Généralement dans les 24 à 48 heures</dd>
+        </div>
+        </div>
+        </dl>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="sm:w-1/2 p-6 sm:p-8">
+        <form id="contact-form" class="space-y-4" novalidate>
+        <!-- Email -->
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <div>
+        <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        placeholder="you@example.com"
+        class="outlined-gray block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 placeholder-gray-400 focus:ring-0 focus:border-gray-500"
+        aria-describedby="email-help"
+        />
+        <p id="email-help" class="mt-1 text-xs text-gray-500">Nous n'utiliserons ces informations que pour vous répondre.</p>
+        </div>
+
+        <!-- Message -->
+        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+        <div>
+        <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+        placeholder="Ecrivez votre message..."
+        class="outlined-gray block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 placeholder-gray-400 focus:ring-0 focus:border-gray-500"
+        ></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-between">
+        <button
+        type="submit"
+        class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
+        >Envoyer message</button>
+
+        <p id="form-status" class="text-sm text-gray-500"></p>
+        </div>
+        </form>
+        </div>
+        </div>
+        </div>
+    </div>
+</section>
+
 <!-- Styles et animations -->
 <style>
+    /* subtle outline style to match "outlined-gray" requirement */
+    .outlined-gray:focus {
+    outline: 2px solid rgba(156, 163, 175, 0.35); /* gray-400 at low opacity */
+    outline-offset: 2px;
+    }
     .animate-gradient-slow {
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
@@ -1387,13 +1471,9 @@
     });
 </script>
 
-
-    
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer - Negocy IA</title>
+    <title>Footer - CheckTonContrat</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -1412,16 +1492,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     <!-- Logo et description -->
                     <div class="space-y-6" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                                C
+                        <div class="flex items-center space-x-1">
+                            <div class="w-10 h-10 flex items-center justify-center text-xl">
+                                <img src="/static/images/logo.png" alt="Logo Mascotte">
                             </div>
-                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-                                CheckTonContrat IA
+                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-indigo-400">
+                                CheckTonContrat
                             </span>
                         </div>
                         <p class="text-gray-400 text-sm">
-                            Optimisez l'analyse de vos documents professionnels grâce à l'intelligence artificielle. Une solution innovante pour une efficacité maximale.
+                            Optimisez l'analyse de vos documents professionnels grâce à notre système intelligente. Une solution innovante pour une efficacité maximale.
                         </p>
                         <div class="flex space-x-4">
                             <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
@@ -1480,12 +1560,6 @@
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                                <span class="text-gray-400">06 00 00 00 00</span>
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
@@ -1501,7 +1575,7 @@
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div class="flex flex-col md:flex-row justify-between items-center">
                         <p class="text-sm text-gray-400">
-                            © 2025 CheckTonContrat IA. Tous droits réservés.
+                            © {{ current_year }} CheckTonContrat IA. Tous droits réservés.
                         </p>
                         <div class="flex items-center space-x-4 mt-4 md:mt-0">
                             <a href="{{ url_for('cgu') }}" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">

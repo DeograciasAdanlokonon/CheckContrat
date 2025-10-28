@@ -21,6 +21,13 @@ class LoginForm(FlaskForm):
   remember_me = BooleanField("", validators=[DataRequired()])
   submit = SubmitField("Se connecter")
 
+# ToDo: Profile Form
+class ProfileForm(FlaskForm):
+  username = StringField("Votre nom d'utilisateur", validators=[DataRequired(), Length(4, 80)])
+  email = EmailField("Votre email", validators=[DataRequired(), Length(4, 120)])
+  new_password = PasswordField("Nouveau mot de passe")
+  submit = SubmitField("Sauvegarder")
+
 
 # ToDo: ContractForm
 class ContractForm(FlaskForm):

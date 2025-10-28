@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, LoginManager, current_user, logout_user
 from models.models import db, User, Check
 from models.config import CheckDataBase
-from forms.forms import RegisterForm, LoginForm, ContractForm, FicheContract
+from forms.forms import RegisterForm, LoginForm, ProfileForm, ContractForm, FicheContract
 from core.upload import UploadError, save_upload
 from core.openai_engine import OpenaiAnalyse
 from emails.email_utils import confirm_token, send_confirmation_email
@@ -47,7 +47,7 @@ current_date = date.today()
 # ToDo: Index Route
 @app.route('/', methods=['GET'])
 def index():
-  return render_template('index.html')
+  return render_template('index.html', current_year=current_year)
 
 # ToDo: Dashboard Home Route
 @app.route('/dashboard', methods = ['GET', 'POST'])
@@ -316,12 +316,39 @@ def download_file(filename):
   # Serve file
   return send_from_directory(directory, safe_filename, as_attachment=True)
 
-
 # Todo: Logout Route
 @app.route('/logout')
+@login_required
 def logout():
   logout_user()
   return redirect(url_for('index'))
+
+#ToDo: Profile Route
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+  user = current_user
+  profile_form = ProfileForm()
+
+  if profile_form.validate_on_submit():
+    try:
+      user.username = profile_form.username.data
+      user.email = profile_form.email.data
+
+      if profile_form.new_password.data:
+        if len(profile_form.new_password.data) < 8:
+          flash('Le mot de passe doit contenir au moins 8 caractères.', 'danger')
+          return redirect(url_for('profile'))
+        user.password_hash = generate_password_hash(profile_form.new_password.data, salt_length=8)
+
+      db.session.commit()
+      flash('Modification sauvegardée avec succèss !', 'success')
+      return redirect(url_for('profile'))
+
+    except Exception as e:
+      flash(f'Une erreur est survenue: {e}', 'danger')
+
+  return render_template('dashboard/profile.html', form=profile_form, current_user=current_user, current_year=current_year)
 
 # ToDo: Mention Legales Route
 @app.route('/mentions-legales', methods=['GET'])

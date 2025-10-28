@@ -80,7 +80,7 @@
           </nav>
         </div>
         <div class="profile-actions">
-          <a href="#">Profile</a>
+          <a href="{{ url_for('profile') }}">Profile</a>
           <span class="divider"></span>
           <a href="{{ url_for('logout') }}">Se déconnecter</a>
         </div>
@@ -121,7 +121,7 @@
                     </div>
                     <div class="item-content d-flex align-items-start flex-column justify-content-center">
                       <h6 class="item-subject font-weight-normal">
-                        Profile
+                        <a href="{{ url_for('profile') }}">Profile</a>
                       </h6>
                     </div>
                   </li>
