@@ -43,7 +43,7 @@ class ResetPasswordForm(FlaskForm):
 class ContractForm(FlaskForm):
   contract_file = FileField("Contrat de travail", validators=[
         FileRequired(message='Sélectionner un fichier.'),
-        FileAllowed(['docx', 'pdf'], 'Documents !')
+        FileAllowed(['docx', 'pdf'], 'Seul les documents pdf/docx sont autorisés !')
     ])
   submit = SubmitField('Lancer analyse')
 
@@ -52,11 +52,11 @@ class ContractForm(FlaskForm):
 class FicheContract(FlaskForm):
   fiche_file = FileField("Fiche de paie", validators=[
         FileRequired(message='Sélectionner un fichier.'),
-        FileAllowed(['pdf'], 'Seulement des Documents PDF/DOCX !')
+        FileAllowed(['pdf'], 'Seulement des Documents PDF/DOCX sont autorisés !')
     ])
   contract_file = FileField("Contrat de travail", validators=[
         FileRequired(message='Sélectionner un fichier.'),
-        FileAllowed(['docx', 'pdf'], 'Seulement des Documents PDF/DOCX !')
+        FileAllowed(['docx', 'pdf'], 'Seulement des Documents PDF/DOCX sont autorisés !')
     ])
   nombre_heure = IntegerField("Nombre d'heure de travail", validators=[DataRequired()])
   submit = SubmitField("Lancer analyse")

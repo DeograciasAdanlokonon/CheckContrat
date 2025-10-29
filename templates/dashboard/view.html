@@ -65,7 +65,7 @@
     <div class="card mb-3">
       <div class="card-body">
         <h6>Informations</h6>
-        <p class="mb-1"><strong>Module:</strong> {{ check.module }}</p>
+        <p class="mb-1"><strong>Module:</strong> {{ check.module.title() }}</p>
         <p class="mb-1"><strong>Demandé le:</strong> {{ check.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
         <p class="mb-1"><strong>Statut paiement:</strong>
         {% if check.has_paid %}<span class="badge bg-success">Payé</span>{% else %}<span class="badge bg-warning text-dark">En attente</span>{% endif %}
@@ -85,9 +85,6 @@
         <h6>Actions</h6>
         <div class="d-grid gap-2">
           <a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}"><i class="bi bi-arrow-left"></i> Retour à la liste</a>
-          {% if check.has_paid and check.result %}
-          <a class="btn btn-outline-success" href="">Contester / demander aide</a>
-          {% endif %}
         </div>
       </div>
     </div>

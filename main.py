@@ -1,14 +1,16 @@
-from flask import Flask, abort, render_template, redirect, url_for, flash, request, send_from_directory
+from flask import Flask, abort, render_template, redirect, url_for, flash, request, send_from_directory, session
 from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, LoginManager, current_user, logout_user
+import stripe
 from models.models import db, User, Check
 from models.config import CheckDataBase
 from forms.forms import RegisterForm, LoginForm, ProfileForm, ContractForm, FicheContract, RequestPasswordForm, ResetPasswordForm
 from core.upload import UploadError, save_upload
 from core.openai_engine import OpenaiAnalyse
-from emails.email_utils import confirm_token, send_confirmation_email, generate_confirmation_token, send_reset_email
+from emails.email_utils import confirm_token, send_confirmation_email, generate_confirmation_token, send_reset_email, send_payment_success_email
 import os
+import threading
 from pathlib import Path
 from datetime import datetime, date
 from dotenv import load_dotenv
@@ -40,9 +42,35 @@ database = CheckDataBase(app=app)
 # Openai engine
 engine = OpenaiAnalyse()
 
+# Stripe module
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
 # current year
 current_year = datetime.now().year
 current_date = date.today()
+
+# Stripe checkout methode
+def stripe_checkout(endpoint):
+   """Implements stripe choukout"""
+
+   price_id = 'price_1SNWPwDqttV5XZq2ZSf6ptHV'  
+   price_obj = stripe.Price.retrieve(price_id)
+   unit_amount = price_obj.unit_amount
+
+   checkout_session = stripe.checkout.Session.create(
+      line_items= [
+         {
+            'price': price_id,
+            'quantity': 1
+         }
+      ],
+      mode= 'payment',
+      success_url = url_for(endpoint, _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url= url_for('cancel', _external=True)
+   )
+
+   return checkout_session
+   
 
 # ToDo: Index Route
 @app.route('/', methods=['GET'])
@@ -87,30 +115,12 @@ def module_contract():
 
       try:
         filename = save_upload(uploaded, current_user.id)
+        session['contrat_data'] = filename  # store in session
 
-        # Run Openai Engine and save record in db
+        # Run Stripe checkout
         if filename:
-          prompt = "Analyse ce contrat de travail et indique s'il est conforme au droit du travail français."
-          result = engine.analyse_contract(file=filename, prompt=prompt)
-
-          # create new check
-          new_check = Check(
-            module='contrat',
-            input_files=filename,
-            output_files=result['report_file'],
-            result=result['result'],
-            detail=result['detail'],
-            user_id=current_user.id,
-          )
-
-          # insert new_check
-          db.session.add(new_check)
-          db.session.flush()
-          db.session.commit()
-
-          # head user to view detail route
-          return redirect(url_for('view', id=new_check.id))
-
+          checkout_session = stripe_checkout(endpoint='analyse_contract')
+          return redirect(checkout_session.url, code=303)
         else:
           flash("Aucun fichier sélectionné !", "info")
 
@@ -124,6 +134,52 @@ def module_contract():
   # GET -> render template with form
   return render_template('dashboard/module_contrat.html', contract_form=contract_form, current_year=current_year)
 
+# ToDo: Analyse Contract route
+@app.route('/analyse-contrat', methods=['GET', 'POST'])
+@login_required
+def analyse_contract():
+   session_id = request.args.get('session_id')
+   stripe_session = stripe.checkout.Session.retrieve(session_id)
+
+   # Run Openai engine if payment is success
+   if stripe_session.payment_status == 'paid':
+      try:
+         data = session.get('contrat_data')
+
+         prompt = "Analyse ce contrat de travail et indique s'il est conforme au droit du travail français. Verifie si c'est bel et bien un contrat de travail, un contrat d’alternance, un contrat de stage ou un contrat de partenariat entre Societe."
+         
+         result = engine.analyse_contract(file=data, prompt=prompt) # Openai engine
+         
+         # create new check
+         new_check = Check(
+            module='contrat',
+            input_files=data,
+            output_files=result['report_file'],
+            result=result['result'],
+            detail=result['detail'],
+            has_paid=True,
+            user_id=current_user.id,
+          )
+         
+         # insert new_check in db
+         db.session.add(new_check)
+         db.session.flush()
+         db.session.commit()
+
+         # Send payment email
+         threading.Thread(target=send_payment_success_email, args=(current_user, 'contrat')).start()
+
+         session.pop('contrat_data', None)  # clean up
+         
+         # head user to view detail route
+         return redirect(url_for('view', id=new_check.id))
+      except Exception as e:
+         flash(f'Une erreure est survenue: {e}', 'info')
+         return redirect(url_for('module_contract'))
+   else:
+      return redirect(url_for('cancel'))
+
+
 # ToDo: FicheContract Route
 @app.route('/fiche-de-paie', methods=['GET', 'POST'])
 @login_required
@@ -135,34 +191,26 @@ def module_fiche():
     if current_user.is_authenticated:
       fiche_uploaded = fiche_form.fiche_file.data
       contract_uploaded = fiche_form.contract_file.data
+      if fiche_form.nombre_heure.data:
+         hours = fiche_form.nombre_heure.data
 
     try:
       fiche_name = save_upload(fiche_uploaded, current_user.id)
       contract_name = save_upload(contract_uploaded, current_user.id)
 
-      # Run Openai Engine and save record in db
+      # Run Stripe checkout
       if fiche_name and contract_name:
-        prompt = "Vérifie si la fiche de paie correspond bien au contrat et identifie toute anomalie, conformement au droit du travail français."
+        data = {
+           'fiche_name': fiche_name,
+           'contract_name': contract_name,
+           'hours': hours
+        }
+        # Store data in session for later use
+        session['fiche_data'] = data
 
-        result = engine.analyse_fiche(fiche_file=fiche_name, contrat_file=contract_name, prompt=prompt)
+        checkout_session = stripe_checkout(endpoint='analyse_fiche')
+        return redirect(checkout_session.url, code=303)
 
-        # create new check
-        new_check = Check(
-          module='fiche',
-          input_files=f'{fiche_name};{contract_name}',
-          output_files=result['report_file'],
-          result=result['result'],
-          detail=result['detail'],
-          user_id=current_user.id,
-        )
-
-        # insert new_check
-        db.session.add(new_check)
-        db.session.flush()
-        db.session.commit()
-
-        # head user to view detail route
-        return redirect(url_for('view', id=new_check.id))
       else:
         flash('Aucun fichier sélectionné !', 'info')
     except UploadError as e:
@@ -173,6 +221,55 @@ def module_fiche():
     # return redirect(url_for("dashboard.index"))
 
   return render_template('dashboard/module_fiche.html', fiche_form=fiche_form, current_year=current_year)
+
+# ToDo: Analyse Fiche Route
+@app.route('/analyse-fiche', methods=['GET', 'POST'])
+@login_required
+def analyse_fiche():
+   session_id = request.args.get('session_id')
+   stripe_session = stripe.checkout.Session.retrieve(session_id)
+
+   if stripe_session.payment_status == 'paid':
+      try:
+        data = session.get('fiche_data')
+        if not data:
+            flash("Aucune donnée d'analyse trouvée.", "danger")
+            return redirect(url_for("module_fiche"))
+        
+        prompt = "Vérifie si la fiche de paie correspond bien au contrat et identifie toute anomalie, conformement au droit du travail français."
+        
+        result = engine.analyse_fiche(fiche_file=data['fiche_name'], contrat_file=data['contract_name'], hours=data['hours'], prompt=prompt)
+        
+        # create new check
+        new_check = Check(
+            module='fiche',
+            input_files=f"{data['fiche_name']};{data['contract_name']}",
+            output_files=result['report_file'],
+            result=result['result'],
+            detail=result['detail'],
+            has_paid=True,
+            user_id=current_user.id,
+          )
+        
+        # insert new_check
+        db.session.add(new_check)
+        db.session.flush()
+        db.session.commit()
+
+        # Send payment email
+        threading.Thread(target=send_payment_success_email, args=(current_user, 'fiche')).start()
+
+        # clean saved session fiche_data
+        session.pop('fiche_data', None)
+        
+        # head user to view detail route
+        return redirect(url_for('view', id=new_check.id))
+      except Exception as e:
+         flash(f'Une erreur est survenue: {e}', 'info')
+         return redirect(url_for('module_fiche'))
+   else:
+      return redirect(url_for('cancel'))
+   
 
 # ToDo: View Check Result Route
 @app.route('/check-result/<int:id>', methods=['GET', 'POST'])
@@ -393,6 +490,13 @@ def reset_password(token):
             return redirect(url_for('request_password'))
 
     return render_template('auth/reset_password.html', form=form)
+
+# ToDo Cancel Payment Route
+@app.route('/cancel')
+@login_required
+def cancel():
+    flash('Payement annulé. Veuillez réessayer !', 'info')
+    return redirect(url_for('dashboard'))
 
 # ToDo: Mention Legales Route
 @app.route('/mentions-legales', methods=['GET'])
