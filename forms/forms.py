@@ -1,9 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField, HiddenField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms import StringField, EmailField, PasswordField, SubmitField, HiddenField, BooleanField, IntegerField, SelectField
+from wtforms.validators import InputRequired, DataRequired, Email, Length, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
-
+def validate_specific_choice(form, field):
+    if field.data == 'select':
+        raise ValidationError('Veuillez sélectionnez un type')
+    
 # ToDo: Registration Form
 class RegisterForm(FlaskForm):
   username = StringField("", validators=[DataRequired(), Length(4, 80)])
@@ -41,10 +44,30 @@ class ResetPasswordForm(FlaskForm):
 
 # ToDo: ContractForm
 class ContractForm(FlaskForm):
-  contract_file = FileField("Contrat de travail", validators=[
+  contract_file = FileField("Contrat", validators=[
         FileRequired(message='Sélectionner un fichier.'),
         FileAllowed(['docx', 'pdf'], 'Seul les documents pdf/docx sont autorisés !')
     ])
+  
+  choices_data = [
+     ('select', '- Seléctionner le type de contrat -'),
+     ('cdd', 'CDD'),
+     ('cdi', 'CDI'),
+     ("d'alternance", 'Alternance (Apprentissage / Professionnalisation)'),
+     ('de stage', 'Stage (Convention de stage)'),
+     ('professionnel/partenariat entre entreprises', 'Contrat professionnel / Partenariat entre entreprises')
+  ]
+
+  alternance_choices = [
+     ('select', "- Seléctionner votre année d'alternance -"),
+     ('1', '1er année'),
+     ('2', '2e année'),
+     ("3", '3e année'),
+     ('4', 'Plus de 3 ans'),
+  ]
+  
+  type_contract = SelectField('Type de contrat', choices=choices_data, validators=[DataRequired(message='Aucune séléction'), validate_specific_choice])
+  alternance = SelectField("Année d'alternance (Obligatoire)", choices=alternance_choices, validators=[DataRequired(message='Aucune séléction')])
   submit = SubmitField('Lancer analyse')
 
 

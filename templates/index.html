@@ -21,7 +21,7 @@
                         <div class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center text-white font-bold text-lg md:text-xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
                             <img src="/static/images/logo.png" alt="Logo Mascotte">
                         </div>
-                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden sm:inline-block">CheckTonContrat</span>
+                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600 sm:inline-block">CheckTonContrat</span>
                     </a>
 
                     <!-- Navigation principale - Desktop -->
@@ -109,7 +109,7 @@
     
 
 <!-- Hero Section avec effet de parallaxe et morphing -->
-<div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white py-32">
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white py-28">
     <!-- Fond animé avec motif de grille -->
     <div class="absolute inset-0">
         <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
@@ -130,17 +130,13 @@
             <!-- Contenu textuel -->
             <div class="relative z-10 text-left reveal-content space-y-8 max-w-xl mx-auto lg:mx-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
 
-                <div class="inline-flex items-center px-4 py-2 " style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
-               
-                </div>
-
                 <!-- Titre principal avec animation de split -->
                 <h1 class="text-5xl sm:text-6xl font-black text-gray-900 mb-8 leading-tight tracking-tight split-text-hero">
                     <span class="block reveal-title-1 opacity-0 transform -translate-y-8" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
-                        Analyser vos
+                        vérifiez vos
                         <span class="relative inline-block">
                             <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600 hover:scale-105 transition-transform duration-300">
-                                contrats et fiches
+                                droits en un clic
                             </span>
                             <svg class="absolute -bottom-2 left-0 w-full h-2 text-indigo-600/20" viewBox="0 0 100 10" preserveAspectRatio="none">
                                 <path d="M0,5 Q25,0 50,5 T100,5" stroke="currentColor" stroke-width="2" fill="none"></path>
@@ -160,7 +156,7 @@
                 <!-- Boutons d'action avec effets hover -->
                 <div class="flex flex-col sm:flex-row gap-6 items-start reveal-buttons opacity-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
                     <a href="{{ url_for('login') }}" class="group relative inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-white overflow-hidden w-full sm:w-auto justify-center">
-                        <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 transform transition-all duration-300 group-hover:scale-105"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-600 transform transition-all duration-300 group-hover:scale-105"></span>
                         <span class="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transform transition-all duration-300"></span>
                         <span class="relative flex items-center">
                             Démarrer Maintenant
@@ -324,12 +320,12 @@
     <!-- Top buttons -->
     <div class="flex flex-col sm:flex-row justify-center gap-12 mb-10">
         <a href="{{ url_for('login') }}"
-            class="bg-indigo-900 hover:bg-indigo-800 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
-            Vérifier un Contrat de Travail <br />
+            class="bg-gradient-to-r from-indigo-600 to-indigo-600 group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            Vérifier un Contrat <br />
             <span class="text-xl font-semibold">2€</span>
         </a>
         <a href="{{ url_for('login') }}"
-            class="bg-indigo-900 hover:bg-indigo-800 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            class="bg-gradient-to-r from-indigo-600 to-indigo-600 group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
             Vérifier une Fiche de Paie <br />
             <span class="text-xl font-semibold">2€</span>
         </a>
@@ -343,7 +339,7 @@
     <!-- Steps  -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
         <!-- Step 1 -->
-        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-4 0-7 1.5-7 3.5V19h14v-1.5c0-2-3-3.5-7-3.5z" />
@@ -352,7 +348,7 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
@@ -360,7 +356,7 @@
         </div>
 
         <!-- Step 3 -->
-        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-2 4H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" />
           </svg>
@@ -368,7 +364,7 @@
         </div>
 
         <!-- Step 4 -->
-        <div class="bg-indigo-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8h8M8 8H6a2 2 0 1 1 2-2v2Zm0 8h8m-8 0H6a2 2 0 1 0 2 2v-2Zm8 0V8m0 8h2a2 2 0 1 1-2 2v-2Zm0-8h2a2 2 0 1 0-2-2v2Z"/>
             </svg>
@@ -741,7 +737,7 @@
         </svg>
         <div>
         <dt class="font-medium text-gray-900">Support</dt>
-        <dd class="mt-1">nxplogistics@yahoo.com</dd>
+        <dd class="mt-1">contact@checktoncontrat.fr</dd>
         </div>
         </div>
 
@@ -1556,7 +1552,7 @@
                                 <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
-                                <a href="mailto:contact@negocy.pro" class="text-gray-400 hover:text-white transition-colors duration-300">nxplogistics@yahoo.com</a>
+                                <a href="mailto:contact@negocy.pro" class="text-gray-400 hover:text-white transition-colors duration-300">contact@checktoncontrat.fr</a>
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

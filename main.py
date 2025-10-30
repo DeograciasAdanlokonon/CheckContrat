@@ -53,7 +53,7 @@ current_date = date.today()
 def stripe_checkout(endpoint):
    """Implements stripe choukout"""
 
-   price_id = 'price_1SNWPwDqttV5XZq2ZSf6ptHV'  
+   price_id = 'price_1SNWSaDlaxMT86N3tTdU28Be'  
    price_obj = stripe.Price.retrieve(price_id)
    unit_amount = price_obj.unit_amount
 
@@ -112,10 +112,17 @@ def module_contract():
   if contract_form.validate_on_submit():
     if current_user.is_authenticated:
       uploaded = contract_form.contract_file.data
+      type_contract = contract_form.type_contract.data
 
       try:
+        type
         filename = save_upload(uploaded, current_user.id)
-        session['contrat_data'] = filename  # store in session
+        
+        data = {
+           'type_contract': type_contract,
+           'filename': filename
+        }
+        session['contrat_data'] = data  # store in session
 
         # Run Stripe checkout
         if filename:
@@ -146,14 +153,14 @@ def analyse_contract():
       try:
          data = session.get('contrat_data')
 
-         prompt = "Analyse ce contrat de travail et indique s'il est conforme au droit du travail français. Verifie si c'est bel et bien un contrat de travail, un contrat d’alternance, un contrat de stage ou un contrat de partenariat entre Societe."
+         prompt = f"Analyse ce contrat {data['type_contract']} et indique s'il est conforme au droit du travail français."
          
-         result = engine.analyse_contract(file=data, prompt=prompt) # Openai engine
+         result = engine.analyse_contract(file=data['filename'], prompt=prompt) # Openai engine
          
          # create new check
          new_check = Check(
             module='contrat',
-            input_files=data,
+            input_files=data['filename'],
             output_files=result['report_file'],
             result=result['result'],
             detail=result['detail'],
@@ -166,15 +173,17 @@ def analyse_contract():
          db.session.flush()
          db.session.commit()
 
+         print(prompt)
+
          # Send payment email
-         threading.Thread(target=send_payment_success_email, args=(current_user, 'contrat')).start()
+         send_payment_success_email(user=current_user, module_type='contrat')
 
          session.pop('contrat_data', None)  # clean up
          
          # head user to view detail route
          return redirect(url_for('view', id=new_check.id))
       except Exception as e:
-         flash(f'Une erreure est survenue: {e}', 'info')
+         flash(f'Une erreure est survenue', 'info')
          return redirect(url_for('module_contract'))
    else:
       return redirect(url_for('cancel'))
@@ -257,6 +266,7 @@ def analyse_fiche():
         db.session.commit()
 
         # Send payment email
+        send_payment_success_email(user=current_user, module_type='fiche')
         threading.Thread(target=send_payment_success_email, args=(current_user, 'fiche')).start()
 
         # clean saved session fiche_data

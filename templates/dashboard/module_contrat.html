@@ -40,9 +40,31 @@
 <!-- Render WTForm fields here -->
 <!-- ToDo: Contrat Form  -->
 {{ render_field(contract_form.contract_file, class="mb-3") }}
+{{ render_field(contract_form.type_contract, class="mb-3", id="type") }}
+<div id="alternance-wrapper" class="mb-3">
+  {{ render_field(contract_form.alternance, id="alternance") }}
+</div>
 {{ render_field(contract_form.submit, class="mdc-button mdc-button--raised mdc-ripple-upgraded ") }}
 {% endblock %}
 </form>
 </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const typeSelect = document.getElementById("type");
+    const alternanceWrapper = document.getElementById("alternance").closest(".mb-3");
+
+    // Hide alternance field + label initially
+    alternanceWrapper.style.display = "none";
+
+    typeSelect.addEventListener("change", function () {
+      if (this.value === "d'alternance") {
+        alternanceWrapper.style.display = "block";
+      } else {
+        alternanceWrapper.style.display = "none";
+      }
+    });
+  });
+</script>
+
 {% endblock %}
