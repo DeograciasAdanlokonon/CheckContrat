@@ -68,7 +68,7 @@ class ContractForm(FlaskForm):
   
   type_contract = SelectField('Type de contrat', choices=choices_data, validators=[DataRequired(message='Aucune séléction'), validate_specific_choice])
   alternance = SelectField("Année d'alternance (Obligatoire)", choices=alternance_choices, validators=[DataRequired(message='Aucune séléction')])
-  submit = SubmitField('Lancer analyse')
+  submit = SubmitField("Lancer l'analyse")
 
 
 # ToDo: FicheContract
@@ -81,5 +81,5 @@ class FicheContract(FlaskForm):
         FileRequired(message='Sélectionner un fichier.'),
         FileAllowed(['docx', 'pdf'], 'Seulement des Documents PDF/DOCX sont autorisés !')
     ])
-  nombre_heure = IntegerField("Nombre d'heure de travail", validators=[DataRequired()])
-  submit = SubmitField("Lancer analyse")
+  nombre_heure = IntegerField("Nombre d'heures de travail", validators=[DataRequired()])
+  submit = SubmitField("Lancer l'analyse")
