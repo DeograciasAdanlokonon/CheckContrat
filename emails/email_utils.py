@@ -165,3 +165,42 @@ def send_payment_success_email(user, module_type):
         server.send_message(msg)
 
     print(f"✅ Email de confirmation de paiement envoyé à {receiver_email}")
+
+
+def send_contact_email(email, message):
+    """
+    Envoie un email à l'admin un message de contact envoyer 
+    par un visiteur.
+    """
+
+    # Sujet et contenu
+    subject = f"Un nouveau message de contact"
+    sender_email = APP_EMAIL
+    receiver_email = 'contact@checktoncontrat.fr'
+
+    html = f"""
+    <html>
+      <body style="font-family:Arial,sans-serif;color:#333;">
+        <h2>Un nouveau message de contact par un visiteur de votre site</h2>
+        <p><strong>Email :</strong>{email}</p>
+        <p><strong>Message : </strong>{message}</p>
+        <hr>
+        <p style="font-size:12px;color:#888;">Ceci est un email suite au remplissage du formulaire de contact</p>
+      </body>
+    </html>
+    """
+
+    # Création du message MIME
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+    msg.attach(MIMEText(html, "html"))
+
+    # Envoi sécurisé via Gmail (ou ton SMTP)
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(sender_email, APP_EMAIL_PASSWORD)
+        server.send_message(msg)
+
+    print("✅ Email de contact envoyé avec succès ! ")

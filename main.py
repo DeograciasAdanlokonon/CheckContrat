@@ -8,7 +8,7 @@ from models.config import CheckDataBase
 from forms.forms import RegisterForm, LoginForm, ProfileForm, ContractForm, FicheContract, RequestPasswordForm, ResetPasswordForm
 from core.upload import UploadError, save_upload
 from core.openai_engine import OpenaiAnalyse
-from emails.email_utils import confirm_token, send_confirmation_email, generate_confirmation_token, send_reset_email, send_payment_success_email
+from emails.email_utils import confirm_token, send_confirmation_email, generate_confirmation_token, send_reset_email, send_payment_success_email, send_contact_email
 import os
 import threading
 from pathlib import Path
@@ -80,26 +80,38 @@ def index():
 # ToDo: Dashboard Home Route
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():
-  """Retuns all the record in the db"""
+  """Returns all the record in the db"""
 
   if not current_user.is_authenticated:
-    return redirect(url_for('login'))  # send user to login page
+    return redirect(url_for('login'))  # Send user to login page
+  
+  # Get current page from query string (?page=2), default = 1
+  page = request.args.get('page', 1, type=int)
+  per_page = 8  # number of analyses per page
 
-  result = db.session.execute(db.select(Check).where(Check.user_id == current_user.id))
-  checks = result.scalars().all()
+  # Query user’s checks
+  pagination = (
+      db.session.query(Check)
+      .filter_by(user_id=current_user.id)
+      .order_by(Check.created_at.desc())
+      .paginate(page=page, per_page=per_page, error_out=False)
+  )
 
-  # Get statistic
+  checks = pagination.items
+
+  # Stats
   total_conforme = sum(1 for c in checks if c.result and c.result.lower() == "conforme")
   total_non_conforme = sum(1 for c in checks if c.result and c.result.lower() == "non conforme")
 
   return render_template(
-    'dashboard/index.html', 
-    current_year=current_year, 
-    current_date=current_date, 
-    current_user=current_user, 
-    checks=checks,
-    total_conforme=total_conforme,
-    total_non_conforme=total_non_conforme
+      'dashboard/index.html',
+      current_user=current_user,
+      current_year=current_year,
+      current_date=current_date,
+      checks=checks,
+      pagination=pagination,
+      total_conforme=total_conforme,
+      total_non_conforme=total_non_conforme
   )
 
 # ToDo: CheckContract Route
@@ -507,6 +519,26 @@ def reset_password(token):
 def cancel():
     flash('Payement annulé. Veuillez réessayer !', 'info')
     return redirect(url_for('dashboard'))
+
+
+# ToDo: Send Contact Message
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+  if request.method == 'POST':
+    if request.form['email'] != "" and request.form['message'] != "":
+        try:
+          email = request.form['email']
+          message = request.form['message']
+
+          # Send message
+          send_contact_email(email=email, message=message)
+          flash('Votre message a bien été envoyé', 'success')
+        except Exception as e:
+           flash(f'Something went wrong: {e}', 'error')
+    else:
+        flash('Veuillez remplir tous les champs', 'error')
+
+  return redirect(url_for('index'))
 
 # ToDo: Mention Legales Route
 @app.route('/mentions-legales', methods=['GET'])

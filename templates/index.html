@@ -719,6 +719,37 @@
 <!-- Section contact  -->
 <section aria-labelledby="contact-heading" class="py-12 bg-gray-55">
     <div class="max-w-4xl mx-auto px-6 bg-gray-1">
+
+        <!-- Flash messages (Tailwind version) -->
+        <div class="max-w-2xl mx-auto mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div 
+                class="relative mb-3 rounded-lg px-4 py-3 text-sm font-medium text-white 
+                {% if category == 'success' %} bg-green-500 
+                {% elif category == 'error' %} bg-red-500 
+                {% elif category == 'warning' %} bg-yellow-500 
+                {% elif category == 'info' %} bg-blue-500 
+                {% else %} bg-gray-500 {% endif %}"
+                role="alert"
+            >
+                {{ message }}
+                <button 
+                type="button" 
+                class="absolute top-2 right-2 text-white/80 hover:text-white"
+                onclick="this.parentElement.remove()"
+                aria-label="Close"
+                >
+                ✕
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        </div>
+
+        <!-- form section  -->
         <div class="bg-white shadow-sm rounded-2xl overflow-hidden">
         <div class="sm:flex">
         <!-- Left: Text -->
@@ -752,7 +783,7 @@
 
         <!-- Right: Form -->
         <div class="sm:w-1/2 p-6 sm:p-8">
-        <form id="contact-form" class="space-y-4" novalidate>
+        <form action="{{ url_for('contact') }}" method="post" id="contact-form" class="space-y-4">
         <!-- Email -->
         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
         <div>
