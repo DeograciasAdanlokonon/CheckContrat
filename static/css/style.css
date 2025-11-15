@@ -5,6 +5,22 @@ body {
     color: #1f2937;
 }
 
+.primary-color {
+    color: #0C1B3A;
+}
+
+.secondary-color {
+    color: #2AD3F5;
+}
+
+.primary-bg {
+    background-color: #0C1B3A;
+}
+
+@theme {
+  --text-tiny: 0.625rem; 
+}
+
 /* Styles pour les tableaux de bord */
 .dashboard-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;

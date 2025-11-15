@@ -45,7 +45,7 @@
     </script>
     <style>
         body {
-            background-color: #202123;
+            background-color: #0C1B3A;
             color: #ffffff;
             overflow-y: auto;
         }
@@ -72,13 +72,13 @@
         }
         </style>
 </head>
-<body class="min-h-screen bg-dark-800">
+<body class="min-h-screen">
     <!-- Header simplifié -->
     <header class="bg-dark-700 border-b border-dark-600 py-4">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between">
                 <a href="{{ url_for('index') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold">C</div>
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-sky-300 to-sky-700 flex items-center justify-center text-white font-bold">C</div>
                     <span class="text-xl font-bold text-white">CheckTonContrat</span>
                 </a>
                 <a href="{{ url_for('index') }}" class="text-white hover:text-primary-500 transition-colors">
@@ -97,13 +97,13 @@
     <nav class="mb-8 p-4 bg-dark-700 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-3">Navigation rapide</h2>
         <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#editeur" class="text-primary-500 hover:underline">Éditeur du site</a></li>
-            <li><a href="#hebergement" class="text-primary-500 hover:underline">Hébergement</a></li>
-            <li><a href="#propriete" class="text-primary-500 hover:underline">Propriété intellectuelle</a></li>
-            <li><a href="#responsabilite" class="text-primary-500 hover:underline">Limitation de responsabilité</a></li>
-            <li><a href="#donnees" class="text-primary-500 hover:underline">Données personnelles</a></li>
-            <li><a href="#droit" class="text-primary-500 hover:underline">Droit applicable</a></li>
-            <li><a href="#contact" class="text-primary-500 hover:underline">Contact</a></li>
+            <li><a href="#editeur" class="text-sky-300 hover:underline">Éditeur du site</a></li>
+            <li><a href="#hebergement" class="text-sky-300 hover:underline">Hébergement</a></li>
+            <li><a href="#propriete" class=text-sky-300 hover:underline">Propriété intellectuelle</a></li>
+            <li><a href="#responsabilite" class="text-sky-300 hover:underline">Limitation de responsabilité</a></li>
+            <li><a href="#donnees" class="text-sky-300 hover:underline">Données personnelles</a></li>
+            <li><a href="#droit" class="text-sky-300 hover:underline">Droit applicable</a></li>
+            <li><a href="#contact" class="text-sky-300 hover:underline">Contact</a></li>
         </ul>
     </nav>
 
@@ -129,7 +129,7 @@
 
     <section id="donnees" class="mb-6 scroll-mt-20">
         <h2 class="text-2xl font-semibold mb-3">DONNÉES PERSONNELLES</h2>
-        <p>Les traitements de données personnelles sont détaillés dans notre <a href="{{ url_for('confidential_policies') }}" class="text-primary-500 hover:underline">Politique de Confidentialité</a>.</p>
+        <p>Les traitements de données personnelles sont détaillés dans notre <a href="{{ url_for('confidential_policies') }}" class="text-sky-300 hover:underline">Politique de Confidentialité</a>.</p>
     </section>
 
     <section id="droit" class="mb-6 scroll-mt-20">

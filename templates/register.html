@@ -6,6 +6,7 @@
     <title>Inscription - CheckTonContrat</title>
 
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -16,7 +17,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom right, #1a1a2e, #16213e);
+            background: linear-gradient(to bottom right, #0C1B3A, #0C1B3A);
             min-height: 100vh;
         }
         .auth-container {
@@ -29,14 +30,14 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .auth-input:focus {
-            border-color: #6366f1;
+            border-color: #2AD3F5;
             box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
         }
         .auth-button {
-            background: linear-gradient(to right, #6366f1, #8b5cf6);
+            background: linear-gradient(to right, #2AD3F5, #09accc);
         }
         .auth-button:hover {
-            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            background: linear-gradient(to right, #09accc, #2AD3F5);
         }
         .logo-glow {
             animation: glow 2s ease-in-out infinite alternate;
@@ -197,7 +198,7 @@
                     <div class="flex items-center space-x-2 mt-2">
                         {{ render_field(register_form.agree_terms, class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-700 rounded bg-gray-800") }}
                         <label for="agree_terms" class="text-sm text-gray-300">
-                            J'accepte les <a href="{{ url_for('cgu') }}" target="_blank" class="text-indigo-400 hover:text-indigo-300">conditions d'utilisation</a> et la <a href="{{ url_for('confidential_policies') }}" target="_blank" class="text-indigo-400 hover:text-indigo-300">politique de confidentialité</a>
+                            J'accepte les <a href="{{ url_for('cgu') }}" target="_blank" class="text-sky-300 hover:text-sky-400">conditions d'utilisation</a> et la <a href="{{ url_for('confidential_policies') }}" target="_blank" class="text-sky-300 hover:text-sky-400">politique de confidentialité</a>
                         </label>
                     </div>
 
@@ -208,7 +209,7 @@
 
                 <p class="mt-6 text-center text-sm text-gray-400">
                     Déjà inscrit ?
-                    <a href="{{ url_for('login') }}" class="font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-200">
+                    <a href="{{ url_for('login') }}" class="font-medium text-sky-300 hover:text-sky-400 transition-colors duration-200">
                         Connectez-vous ici
                     </a>
                 </p>

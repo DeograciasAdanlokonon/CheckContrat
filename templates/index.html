@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CheckTonContrat - Système d'analyse de contrats</title>
-    <meta name="description" content="Negocy : logiciel analyse de contrats et fiches de paie France. Entreprises : analyses vos contrats plus vite. Acheteurs publics : analysez et comparez contrats et fiches de paies automatiquement.">
+    <meta name="description" content="CheckTonContrat : logiciel analyse de contrats et fiches de paie France. Entreprises : analyses vos contrats plus vite. Acheteurs publics : analysez et comparez contrats et fiches de paies automatiquement.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,22 +19,22 @@
                     <!-- Logo et nom -->
                     <a href="{{ url_for('index') }}" class="flex items-center space-x-2 group">
                         <div class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center text-white font-bold text-lg md:text-xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
-                            <img src="/static/images/logo.png" alt="Logo Mascotte">
+                            <img src="/static/images/logo-header.png" alt="Logo Mascotte">
                         </div>
-                        <span class="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600 sm:inline-block">CheckTonContrat</span>
+                        <span class="text-lg md:text-xl font-bold bg-clip-text  bg-gradient-to-r primary-color sm:inline-block">CheckTonContrat</span>
                     </a>
 
                     <!-- Navigation principale - Desktop -->
                     <div class="hidden md:flex items-center space-x-8" id="nav-menu">
-                        <a href="/" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                        <a href="/" class="nav-link relative text-gray-700 hover:text-sky-500 transition-colors duration-300 font-medium">
                             Accueil
                             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
                         </a>
-                        <a href="#fonctionnalites" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                        <a href="#fonctionnalites" class="nav-link relative text-gray-700 hover:text-sky-500 transition-colors duration-300 font-medium">
                             Fonctionnalités
                             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
                         </a>
-                        <a href="#faq" class="nav-link relative text-gray-700 hover:text-indigo-600 transition-colors duration-300 font-medium">
+                        <a href="#faq" class="nav-link relative text-gray-700 hover:text-sky-500 transition-colors duration-300 font-medium">
                             FAQ
                             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
                         </a>
@@ -51,24 +51,24 @@
                                 </svg>
                             </button>
                             <div class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 transform origin-top transition-transform duration-200 z-50 language-dropdown scale-0" style="transform: scale(0);">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 flex items-center space-x-2">
-                                    <span class="w-5 h-5 rounded-full flex items-center justify-center bg-indigo-100 text-indigo-600 font-medium text-xs">FR</span>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-sky-500 transition-colors duration-200 flex items-center space-x-2">
+                                    <span class="w-5 h-5 rounded-full flex items-center justify-center bg-indigo-100 text-sky-500 font-medium text-xs">FR</span>
                                     <span>Français</span>
                                 </a>
                                 
                             </div>
                         </div>
 
-                        <a href="{{ url_for('login') }}" class="hidden sm:inline-flex items-center text-indigo-600 hover:text-indigo-800 transition-colors duration-300 font-medium">
+                        <a href="{{ url_for('login') }}" class="hidden sm:inline-flex items-center primary-color hover:text-sky-500 transition-colors duration-300 font-medium">
                             Se connecter
                         </a>
 
                         <!-- Bouton menu mobile -->
                         <button class="md:hidden flex items-center focus:outline-none" id="mobile-menu-button" aria-label="Menu">
                             <span class="w-7 h-6 flex flex-col justify-between items-center">
-                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
-                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
-                                <span class="w-full h-0.5 bg-indigo-600 transform transition-all duration-300 hamburger-line"></span>
+                                <span class="w-full h-0.5 bg-sky-600 transform transition-all duration-300 hamburger-line"></span>
+                                <span class="w-full h-0.5 bg-sky-600 transform transition-all duration-300 hamburger-line"></span>
+                                <span class="w-full h-0.5 bg-sky-600 transform transition-all duration-300 hamburger-line"></span>
                             </span>
                         </button>
                     </div>
@@ -77,7 +77,7 @@
         </div>
 
         <!-- Menu mobile avec design amélioré -->
-        <div class="md:hidden fixed inset-0 bg-gradient-to-b from-indigo-600 via-indigo-500 to-indigo-400/95 backdrop-blur-md transform transition-transform duration-300 ease-in-out z-40 mobile-menu translate-x-full" id="mobile-menu">
+        <div class="md:hidden fixed inset-0 bg-gradient-to-b from-sky-700 via-sky-600 to-sky-400/95 backdrop-blur-md transform transition-transform duration-300 ease-in-out z-40 mobile-menu translate-x-full" id="mobile-menu">
             <div class="h-full flex flex-col">
                 <!-- Bouton fermeture -->
                 <div class="flex justify-end p-4">
@@ -122,17 +122,17 @@
     </div>
 
     <!-- Contenu principal avec effet de révélation -->
-    <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="container relative mx-auto px-6 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Contenu textuel -->
             <div class="relative z-10 text-left reveal-content space-y-8 max-w-xl mx-auto lg:mx-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
 
                 <!-- Titre principal avec animation de split -->
-                <h1 class="text-5xl sm:text-6xl font-black text-gray-900 mb-8 leading-tight tracking-tight split-text-hero">
+                <h1 class="text-5xl sm:text-6xl font-black primary-color mb-8 leading-tight tracking-tight split-text-hero">
                     <span class="block reveal-title-1 opacity-0 transform -translate-y-8" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
                         vérifiez vos
                         <span class="relative inline-block">
-                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600 hover:scale-105 transition-transform duration-300">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-600 hover:scale-105 transition-transform duration-300">
                                 droits en un clic
                             </span>
                             <svg class="absolute -bottom-2 left-0 w-full h-2 text-indigo-600/20" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -153,8 +153,8 @@
                 <!-- Boutons d'action avec effets hover -->
                 <div class="flex flex-col sm:flex-row gap-6 items-start reveal-buttons opacity-0" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
                     <a href="{{ url_for('login') }}" class="group relative inline-flex items-center px-8 py-4 text-lg font-medium rounded-xl text-white overflow-hidden w-full sm:w-auto justify-center">
-                        <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-600 transform transition-all duration-300 group-hover:scale-105"></span>
-                        <span class="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transform transition-all duration-300"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-sky-500 to-sky-400 transform transition-all duration-300 group-hover:scale-105"></span>
+                        <span class="absolute inset-0 bg-gradient-to-r from-sky-400 to-sky-500 opacity-0 group-hover:opacity-100 transform transition-all duration-300"></span>
                         <span class="relative flex items-center">
                             Démarrer Maintenant
                             <svg class="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
@@ -172,7 +172,7 @@
             <div class="lg:flex justify-center items-center relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 rounded-full filter blur-3xl opacity-30 animate-pulse-slow"></div>
                 <div class="relative z-10 transform hover:scale-105 transition-transform duration-500 drop-shadow-2xl">
-                    <img src="/static/images/ia_assitant.gif" alt="Assistant pour les appels d'offres" class="rounded-2xl max-w-md w-full mx-auto">
+                    <img src="/static/images/ia_assitant.jpeg" alt="Assistant pour les appels d'offres" class="rounded-2xl max-w-md w-full mx-auto">
                 </div>
             </div>
         </div>
@@ -182,7 +182,7 @@
 <!-- Loader -->
 <div class="loader fixed inset-0 z-50 flex items-center justify-center bg-white" style="opacity: 0; display: none;">
     <div class="loader-content">
-        <span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+        <span class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
             CheckTonContrat
         </span>
     </div>
@@ -197,7 +197,7 @@
 <section id="fonctionnalites" class="py-24 bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-20">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
                 Une solution complète pour une vérification premium
             </h2>
             <p class="text-xl text-gray-600">
@@ -209,7 +209,7 @@
             <!-- Carte 1 : Analyse des appels d'offres -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
                 <div class="p-8">
-                    <div class="w-14 h-14 rounded-lg bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 rounded-lg bg-indigo-100 flex items-center justify-center mb-6 text-sky-600 text-2xl group-hover:bg-sky-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-search-plus"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Analyse intelligente</h3>
@@ -243,7 +243,7 @@
             <!-- Carte 2 : Génération de documents -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
                 <div class="p-8">
-                    <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mb-6 text-indigo-600 text-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 rounded-lg bg-purple-100 flex items-center justify-center mb-6 text-sky-600 text-2xl group-hover:bg-sky-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Contrat de Travail</h3>
@@ -277,7 +277,7 @@
             <!-- Carte 4 : Comparaison des offres -->
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 group">
                 <div class="p-8">
-                    <div class="w-14 h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-6 text-blue-600 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-14 h-14 rounded-lg bg-blue-100 flex items-center justify-center mb-6 text-sky-600 text-2xl group-hover:bg-sky-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-receipt"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-gray-800">Fiche de Paie</h3>
@@ -317,26 +317,26 @@
     <!-- Top buttons -->
     <div class="flex flex-col sm:flex-row justify-center gap-12 mb-10">
         <a href="{{ url_for('login') }}"
-            class="bg-gradient-to-r from-indigo-600 to-indigo-600 group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            class="bg-gradient-to-r primary-bg group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
             Vérifier un Contrat <br />
             <span class="text-xl font-semibold">2€</span>
         </a>
         <a href="{{ url_for('login') }}"
-            class="bg-gradient-to-r from-indigo-600 to-indigo-600 group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
+            class="bg-gradient-to-r primary-bg group-hover:opacity-100 px-10 py-6 rounded-2xl text-white text-lg font-medium shadow-md transition">
             Vérifier une Fiche de Paie <br />
             <span class="text-xl font-semibold">2€</span>
         </a>
     </div>
 
     <!-- Title -->
-    <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+    <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
     Comment ça fonctionne ?
     </h2>
 
     <!-- Steps  -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
         <!-- Step 1 -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-slate-950 to-blue-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-4 0-7 1.5-7 3.5V19h14v-1.5c0-2-3-3.5-7-3.5z" />
@@ -345,7 +345,7 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-blue-900 to-slate-950 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
@@ -353,7 +353,7 @@
         </div>
 
         <!-- Step 3 -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-slate-950 to-blue-900 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-2 4H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" />
           </svg>
@@ -361,7 +361,7 @@
         </div>
 
         <!-- Step 4 -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
+        <div class="bg-gradient-to-r from-blue-900 to-slate-950 rounded-2xl p-6 flex flex-col items-center justify-center space-y-3">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8h8M8 8H6a2 2 0 1 1 2-2v2Zm0 8h8m-8 0H6a2 2 0 1 0 2 2v-2Zm8 0V8m0 8h2a2 2 0 1 1-2 2v-2Zm0-8h2a2 2 0 1 0-2-2v2Z"/>
             </svg>
@@ -379,7 +379,7 @@
 <section id="pour-qui" class="py-24 bg-gradient-to-b from-gray-50 to-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
                 Pour qui est conçu CheckTonContrat ?
             </h2>
             <p class="text-xl text-gray-600">
@@ -392,10 +392,10 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
                 <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-3xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-sky-500 text-3xl group-hover:bg-sky-600 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les étudiants</h3>
+                    <h3 class="text-3xl font-bold mb-6 primary-color">Pour les étudiants</h3>
                     <p class="text-lg text-gray-600 mb-8">
                         Analysez vos contrats de travail pour une bonne décision et réussite professionnelle.
                     </p>
@@ -427,7 +427,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300">
+                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-sky-500 hover:bg-sky-400 transition-colors duration-300">
                         <span class="flex items-center">
                             Démarrez Maintenant
                             <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -442,10 +442,10 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl p-8 relative group">
                 <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-purple-600/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-indigo-600 text-3xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                    <div class="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center mb-6 text-sky-500 text-3xl group-hover:bg-sky-500 group-hover:text-white transition-all duration-300">
                         <i class="fas fa-user-doctor"></i>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6 text-gray-800">Pour les salariés</h3>
+                    <h3 class="text-3xl font-bold mb-6 primary-color">Pour les salariés</h3>
                     <p class="text-lg text-gray-600 mb-8">
                         Vérifiez la conformité de vos fiches de paie pour garantir un contrôle judicieux.
                     </p>
@@ -477,7 +477,7 @@
                         </li>
                     </ul>
 
-                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300">
+                    <a href="{{ url_for('register') }}" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white overflow-hidden relative group bg-sky-500 hover:bg-sky-400 transition-colors duration-300">
                         <span class="flex items-center">
                             Démarrez Maintenant
                             <svg class="ml-2 w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -495,7 +495,7 @@
 <section class="py-24 bg-gray-50" id="faq">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
                 Questions fréquentes
             </h2>
             <p class="text-xl text-gray-600">
@@ -595,7 +595,7 @@
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-3xl mx-auto text-center mb-16">
-            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">
+            <h2 class="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-sky-400">
                 Ce que nos clients disent
             </h2>
             <p class="text-xl text-gray-600">
@@ -610,7 +610,7 @@
                 <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
                     <div class="mb-6">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-sky-600 to-sky-500 flex items-center justify-center text-white font-bold text-xl">
                                 D
                             </div>
                             <div class="ml-4">
@@ -645,7 +645,7 @@
                 <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
                     <div class="mb-6">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-sky-700 to-sky-500 flex items-center justify-center text-white font-bold text-xl">
                                 C
                             </div>
                             <div class="ml-4">
@@ -680,7 +680,7 @@
                 <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg transform hover:-translate-y-1 transition-all duration-300" style="opacity: 0; transform: translateY(20px); transition: 0.6s;">
                     <div class="mb-6">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center text-white font-bold text-xl">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-sky-500 to-sky-700 flex items-center justify-center text-white font-bold text-xl">
                                 P
                             </div>
                             <div class="ml-4">
@@ -754,7 +754,7 @@
         <div class="sm:flex">
         <!-- Left: Text -->
         <div class="sm:w-1/2 p-8 sm:p-10 bg-gray-50">
-        <h2 class="text-3xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-600">Nous joindre</h2>
+        <h2 class="text-3xl font-semibold bg-clip-text bg-gradient-to-r primary-color">Nous joindre</h2>
         <p class="mt-3 text-gray-600">Vous avez une question, un commentaire ou un projet dont vous aimeriez discuter ? Envoyez-nous votre adresse e-mail et un bref message, et nous vous répondrons dans les plus brefs délais.</p>
 
 
@@ -816,7 +816,7 @@
         <div class="flex items-center justify-between">
         <button
         type="submit"
-        class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
+        class="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white primary-bg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
         >Envoyer message</button>
 
         <p id="form-status" class="text-sm text-gray-500"></p>
@@ -1502,7 +1502,7 @@
 
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white relative overflow-hidden">
+    <footer class="primary-bg text-white relative overflow-hidden">
         <!-- Formes décoratives -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
             <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -1520,21 +1520,21 @@
                             <div class="w-10 h-10 flex items-center justify-center text-xl">
                                 <img src="/static/images/logo.png" alt="Logo Mascotte">
                             </div>
-                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-indigo-400">
+                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-400">
                                 CheckTonContrat
                             </span>
                         </div>
-                        <p class="text-gray-400 text-sm">
+                        <p class="text-gray-300 text-sm">
                             Optimisez l'analyse de vos documents professionnels grâce à notre système intelligent. Une solution innovante pour une efficacité maximale.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
                                 <span class="sr-only">LinkedIn</span>
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
                                 </svg>
                             </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
                                 <span class="sr-only">Twitter</span>
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
@@ -1548,13 +1548,13 @@
                         <h3 class="text-lg font-semibold mb-6">Navigation</h3>
                         <ul class="space-y-4">
                             <li>
-                                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Accueil</a>
+                                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Accueil</a>
                             </li>
                             <li>
-                                <a href="#fonctionnalites" class="text-gray-400 hover:text-white transition-colors duration-300">Fonctionnalités</a>
+                                <a href="#fonctionnalites" class="text-gray-300 hover:text-white transition-colors duration-300">Fonctionnalités</a>
                             </li>
                             <li>
-                                <a href="#faq" class="text-gray-400 hover:text-white transition-colors duration-300">FAQ</a>
+                                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-300">FAQ</a>
                             </li>
                         </ul>
                     </div>
@@ -1564,10 +1564,10 @@
                         <h3 class="text-lg font-semibold mb-6">Informations légales</h3>
                         <ul class="space-y-4">
                             <li>
-                                <a href="{{ url_for('legal_mention') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Mentions légales</a>
+                                <a href="{{ url_for('legal_mention') }}" class="text-gray-300 hover:text-white transition-colors duration-300">Mentions légales</a>
                             </li>
                             <li>
-                                <a href="{{ url_for('confidential_policies') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
+                                <a href="{{ url_for('confidential_policies') }}" class="text-gray-300 hover:text-white transition-colors duration-300">Politique de confidentialité</a>
                             </li>
                         </ul>
                     </div>
@@ -1577,17 +1577,17 @@
                         <h3 class="text-lg font-semibold mb-6">Contact</h3>
                         <ul class="space-y-4">
                             <li class="flex items-center">
-                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-sky-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
-                                <a href="mailto:contact@negocy.pro" class="text-gray-400 hover:text-white transition-colors duration-300">contact@checktoncontrat.fr</a>
+                                <a href="mailto:contact@negocy.pro" class="text-gray-300 hover:text-white transition-colors duration-300">contact@checktoncontrat.fr</a>
                             </li>
                             <li class="flex items-center">
-                                <svg class="w-5 h-5 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-sky-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
-                                <span class="text-gray-400">Paris, France</span>
+                                <span class="text-gray-300">Paris, France</span>
                             </li>
                         </ul>
                     </div>
@@ -1598,11 +1598,11 @@
             <div class="border-t border-gray-800">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div class="flex flex-col md:flex-row justify-between items-center">
-                        <p class="text-sm text-gray-400">
+                        <p class="text-sm text-gray-300">
                             © {{ current_year }} CheckTonContrat. Tous droits réservés.
                         </p>
                         <div class="flex items-center space-x-4 mt-4 md:mt-0">
-                            <a href="{{ url_for('cgu') }}" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">
+                            <a href="{{ url_for('cgu') }}" class="text-sm text-gray-300 hover:text-white transition-colors duration-300">
                                 Conditions Générales de Vente
                             </a>
                         </div>

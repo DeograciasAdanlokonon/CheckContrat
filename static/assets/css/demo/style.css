@@ -3018,9 +3018,9 @@ svg.mdc-button__icon {
 }
 
 .mdc-grid-tile__secondary {
-  background-color: #7a00ff;
+  background-color: #2AD3F5;
   /* @alternate */
-  background-color: var(--mdc-theme-primary, #7a00ff);
+  background-color: var(--mdc-theme-primary, #2AD3F5);
   color: #fff;
   /* @alternate */
   color: var(--mdc-theme-on-primary, #fff);
@@ -8997,7 +8997,7 @@ a.mdc-list-item {
 }
 
 :root {
-  --mdc-theme-primary: #7a00ff;
+  --mdc-theme-primary: #2AD3F5;
   --mdc-theme-secondary: #ff420f;
   --mdc-theme-background: #fff;
   --mdc-theme-surface: #fff;
@@ -22153,7 +22153,7 @@ address p {
 }
 
 .mdc-card.info-card.info-card--primary .card-inner .card-icon-wrapper {
-  background-color: #7a00ff;
+  background-color: #0C1B3A;
   box-shadow: 0 0 10px 5px rgba(122, 0, 255, 0.35);
 }
 

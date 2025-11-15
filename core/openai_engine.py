@@ -1,8 +1,9 @@
 from pathlib import Path
+import markdown
 from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.units import cm
 from reportlab.lib import colors
 import json
@@ -60,6 +61,11 @@ class OpenaiAnalyse:
             raise ValueError("Unsupported file type. Must be PDF or DOCX.")
 
         return text.strip()
+    
+    def _render_markdown(self, text):
+        if not text:
+            return ""
+        return markdown.markdown(text, extensions=['fenced_code', 'tables'])
 
     def _generate_report_file(self, analysis_result: dict) -> str:
         """
@@ -68,10 +74,10 @@ class OpenaiAnalyse:
         """
         filename = f"report_{self._generate_token()}.pdf"
         output_path = OUTPUT_DIR / filename
-
+        
         # Extract data safely
         result_text = analysis_result.get("result", "Non conforme")
-        detail_text = analysis_result.get("detail", "Aucun détail fourni.")
+        detail_text = self._render_markdown(analysis_result.get("detail", "Aucun détail fourni."))
         timestamp = datetime.now().strftime("%d/%m/%Y à %H:%M")
 
         # PDF document setup
@@ -79,8 +85,32 @@ class OpenaiAnalyse:
         styles = getSampleStyleSheet()
         story = []
 
-        # Title
-        story.append(Paragraph("<b>Rapport d’analyse - CheckTonContrat</b>", styles["Title"]))
+        # Path to your logo
+        logo_path = "static/images/logo-header.png"
+
+        try:
+            logo = Image(logo_path, width=2.2*cm, height=2.2*cm)  # adjust size as needed
+        except Exception:
+            logo = Spacer(1, 2.2*cm)  # fallback if image missing
+
+        # Title paragraph
+        title = Paragraph("<b>Rapport d’analyse - CheckTonContrat</b>", styles["Title"])
+
+        # Create a two-column layout: [logo | title]
+        header_table = Table(
+            [[logo, title]],
+            colWidths=[2.5*cm, None]  # left column fixed, right auto-expands
+        )
+
+        header_table.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 0),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ]))
+
+        # Add header to story
+        story.append(header_table)
         story.append(Spacer(1, 0.5 * cm))
 
         # Result section
@@ -95,7 +125,7 @@ class OpenaiAnalyse:
         story.append(Spacer(1, 0.5 * cm))
 
         # Timestamp
-        story.append(Paragraph(f"<font size='9' color='gray'>Généré le {timestamp}</font>", styles["Normal"]))
+        story.append(Paragraph(f"<font size='9' color='gray'>Généré le {timestamp} par CheckTonContrat.fr</font>", styles["Normal"]))
 
         # Build PDF
         doc.build(story)
